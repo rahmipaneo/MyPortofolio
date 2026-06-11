@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -61,24 +62,6 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Plus Jakarta Sa
 .social-link.ig:hover{border-color:#E1306C;color:#E1306C;background:#fff0f5}
 .social-link.fb:hover{border-color:#1877F2;color:#1877F2;background:#f0f5ff}
 .social-link.wa:hover{border-color:#25D366;color:#25D366;background:#f0fff4}
-.social-link.em:hover{border-color:#EA4335;color:#EA4335;background:#fff5f5}
-.social-link.li:hover{border-color:#0A66C2;color:#0A66C2;background:#f0f7ff}
-
-/* ── DOCUMENTATION GALLERY ── */
-.doc-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:4px}
-.doc-gallery-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:pointer;border:1.5px solid var(--border);transition:transform .2s,border-color .2s}
-.doc-gallery-img:hover{transform:scale(1.04);border-color:var(--primary-light)}
-.doc-gallery-placeholder{width:100%;aspect-ratio:4/3;background:var(--surface2);border:2px dashed var(--border2);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:10px;text-align:center;padding:8px;flex-direction:column;gap:6px}
-/* Lightbox */
-.lightbox-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:400;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-.lightbox-overlay.show{display:flex}
-.lightbox-img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:12px;box-shadow:0 24px 80px rgba(0,0,0,.5)}
-.lightbox-close{position:absolute;top:20px;right:24px;color:#fff;font-size:28px;cursor:pointer;background:rgba(255,255,255,.15);border:none;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s}
-.lightbox-close:hover{background:rgba(255,255,255,.28)}
-.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;font-size:22px;cursor:pointer;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s}
-.lightbox-nav:hover{background:rgba(255,255,255,.28)}
-.lightbox-prev{left:20px}
-.lightbox-next{right:20px}
 
 /* ── HERO ── */
 .hero{position:relative;overflow:hidden;background:var(--primary);min-height:480px;display:flex;align-items:center}
@@ -392,14 +375,6 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Plus Jakarta Sa
   <div class="modal-body" id="modalBody"></div>
 </aside>
 
-<!-- LIGHTBOX -->
-<div class="lightbox-overlay" id="lightboxOverlay">
-  <button class="lightbox-close" onclick="document.getElementById('lightboxOverlay').classList.remove('show');document.body.style.overflow=''" aria-label="Tutup">✕</button>
-  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)" aria-label="Sebelumnya">‹</button>
-  <img class="lightbox-img" id="lightboxImg" src="" alt="Dokumentasi" onclick="event.stopPropagation()">
-  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)" aria-label="Berikutnya">›</button>
-</div>
-
 <!-- ADMIN PANEL -->
 <div class="admin-overlay" id="adminOverlay" role="dialog" aria-modal="true">
   <div class="admin-panel">
@@ -433,7 +408,6 @@ const db  = getFirestore(app);
 const ADMIN_PASS = 'rahmi2025';
 let authed = false, currentCat = 'all', editingId = null;
 let _formImgData = null;
-let _formDocGallery = []; // array base64 foto dokumentasi (maks 10)
 let _profileImgData = null;
 let _currentAdminTab = 'entries';
 
@@ -487,18 +461,6 @@ async function deleteEntryImg(id) {
   await dbDel('img-' + id);
 }
 
-// --- Galeri dokumentasi per entri (maks 10 foto) ---
-async function loadDocGallery(id) {
-  const raw = await dbGet('gallery-' + id);
-  try { return raw ? JSON.parse(raw) : []; } catch { return []; }
-}
-async function saveDocGallery(id, arr) {
-  await dbSet('gallery-' + id, JSON.stringify(arr));
-}
-async function deleteDocGallery(id) {
-  await dbDel('gallery-' + id);
-}
-
 // --- Foto profil (base64 langsung di Firestore) ---
 async function loadProfile() {
   const raw = await dbGet('profile');
@@ -535,9 +497,7 @@ const defaultEntries = [
 const defaultSocial = {
   ig: 'https://www.instagram.com/',
   fb: 'https://www.facebook.com/',
-  wa: 'https://wa.me/62',
-  email: '',
-  linkedin: ''
+  wa: 'https://wa.me/62'
 };
 
 // ══════════════════════════════════════════════════════
@@ -587,12 +547,6 @@ function renderSocialLinks() {
     </a>` : ''}
     ${_social.wa ? `<a href="${_social.wa}" target="_blank" rel="noopener" class="social-link wa" title="WhatsApp" aria-label="WhatsApp">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-    </a>` : ''}
-    ${_social.email ? `<a href="mailto:${_social.email}" class="social-link em" title="Email" aria-label="Email">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-    </a>` : ''}
-    ${_social.linkedin ? `<a href="${_social.linkedin}" target="_blank" rel="noopener" class="social-link li" title="LinkedIn" aria-label="LinkedIn">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
     </a>` : ''}`;
 }
 
@@ -696,16 +650,6 @@ async function openDetail(id) {
   if (e.tags && e.tags.length) body += `<div class="modal-section"><div class="modal-section-label">Tags</div><div class="modal-tags">${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div></div>`;
   if (e.doi) body += `<div class="modal-section"><div class="modal-section-label">Publikasi</div><a href="https://doi.org/${e.doi}" target="_blank" class="modal-link">Lihat Publikasi ↗</a></div>`;
   if (e.link) body += `<div class="modal-section"><div class="modal-section-label">Tautan</div><a href="${e.link}" target="_blank" class="modal-link">Buka Tautan ↗</a></div>`;
-
-  // Galeri dokumentasi
-  const gallery = await loadDocGallery(e.id);
-  if (gallery && gallery.length > 0) {
-    body += `<div class="modal-section"><div class="modal-section-label">Dokumentasi Kegiatan (${gallery.length} foto)</div>
-      <div class="doc-gallery">${gallery.map((src, i) =>
-        `<img src="${src}" alt="Dokumentasi ${i+1}" class="doc-gallery-img" loading="lazy" onclick="openLightbox(${JSON.stringify(e.id)},${i})">`
-      ).join('')}</div></div>`;
-  }
-
   document.getElementById('modalBody').innerHTML = body;
   document.getElementById('overlay').classList.add('show');
   document.getElementById('modal').classList.add('show');
@@ -849,20 +793,6 @@ function showAdminDashboard(tab) {
             <input type="url" class="social-edit-input" id="socialWa" value="${_social.wa||''}" placeholder="https://wa.me/628xxxx">
           </div>
         </div>
-        <div class="social-edit-row">
-          <div class="social-edit-icon">✉️</div>
-          <div style="flex:1">
-            <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px">Email</div>
-            <input type="email" class="social-edit-input" id="socialEmail" value="${_social.email||''}" placeholder="nama@email.com">
-          </div>
-        </div>
-        <div class="social-edit-row">
-          <div class="social-edit-icon" style="font-size:13px;font-weight:700;color:#0A66C2">in</div>
-          <div style="flex:1">
-            <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px">LinkedIn</div>
-            <input type="url" class="social-edit-input" id="socialLinkedin" value="${_social.linkedin||''}" placeholder="https://linkedin.com/in/username">
-          </div>
-        </div>
         <div class="btn-row">
           <button class="btn-primary" onclick="saveSocialLinks()">Simpan Link</button>
         </div>
@@ -923,9 +853,7 @@ async function saveSocialLinks() {
   _social = {
     ig: document.getElementById('socialIg').value.trim(),
     fb: document.getElementById('socialFb').value.trim(),
-    wa: document.getElementById('socialWa').value.trim(),
-    email: document.getElementById('socialEmail').value.trim(),
-    linkedin: document.getElementById('socialLinkedin').value.trim()
+    wa: document.getElementById('socialWa').value.trim()
   };
   const ok = await saveSocial(_social);
   renderSocialLinks();
@@ -943,11 +871,8 @@ function showEditForm(id) { editingId = id; showEntryForm(_entries.find(x => x.i
 
 async function showEntryForm(e) {
   _formImgData = null;
-  _formDocGallery = [];
   const isEdit = !!e;
   const existingImg = e ? (await loadEntryImg(e.id) || '') : '';
-  const existingGallery = e ? (await loadDocGallery(e.id) || []) : [];
-  _formDocGallery = [...existingGallery];
   document.getElementById('adminContent').innerHTML = `
     <div class="admin-panel-header"><h2>${isEdit ? 'Edit Entri' : 'Tambah Entri'}</h2><button class="btn-ghost" onclick="showAdminDashboard()" style="font-size:11px;padding:8px 14px">← Kembali</button></div>
     <div class="admin-panel-body">
@@ -974,22 +899,13 @@ async function showEntryForm(e) {
       <div class="form-group"><label class="form-label" for="fDesc">Deskripsi</label><textarea id="fDesc" class="form-textarea" placeholder="Deskripsi singkat...">${e?e.desc:''}</textarea></div>
       <div class="form-group"><label class="form-label" for="fRoles">Peran & Kontribusi <span style="color:var(--text-muted);text-transform:none;letter-spacing:0">(satu per baris)</span></label><textarea id="fRoles" class="form-textarea" placeholder="Peran pertama&#10;Peran kedua">${e?(e.roles||[]).join('\n'):''}</textarea></div>
       <div class="form-group"><label class="form-label" for="fTags">Tags <span style="color:var(--text-muted);text-transform:none;letter-spacing:0">(pisahkan koma)</span></label><input type="text" id="fTags" class="form-input" placeholder="GC-MS, Scopus, Farmasi" value="${e?(e.tags||[]).join(', '):''}"></div>
-      <div class="form-group"><label class="form-label" for="fDoi">DOI Publikasi</label><input type="text" id="fDoi" class="form-input" placeholder="10.xxxxx/..." value="${e?e.doi:''}"></div>
-      <div class="form-group"><label class="form-label" for="fLink">Link lainnya</label><input type="text" id="fLink" class="form-input" placeholder="https://..." value="${e?e.link||'':''}"></div>
-      <div class="form-group">
-        <label class="form-label">Dokumentasi Kegiatan <span style="color:var(--text-muted);text-transform:none;letter-spacing:0">(maks 10 foto · jpg/jpeg/png dll)</span></label>
-        <div id="docGalleryPreview" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:10px"></div>
-        <label class="file-upload-btn" style="display:inline-flex;cursor:pointer">
-          📷 Tambah Foto Dokumentasi
-          <input type="file" accept="image/*" multiple style="display:none" onchange="onDocGalleryChange(event)">
-        </label>
-        <div id="docGalleryCount" style="font-size:11px;color:var(--text-muted);margin-top:6px"></div>
+      <div class="form-grid">
+        <div class="form-group"><label class="form-label" for="fDoi">DOI Publikasi</label><input type="text" id="fDoi" class="form-input" placeholder="10.xxxxx/..." value="${e?e.doi:''}"></div>
+        <div class="form-group"><label class="form-label" for="fLink">Link lainnya</label><input type="text" id="fLink" class="form-input" placeholder="https://..." value="${e?e.link||'':''}"></div>
       </div>
       <div id="saveEntryStatus" style="min-height:24px;margin-bottom:4px;text-align:right"></div>
       <div class="btn-row"><button class="btn-ghost" onclick="showAdminDashboard()">Batal</button><button class="btn-primary" id="saveEntryBtn" onclick="saveEntry()">${isEdit?'Simpan Perubahan':'Tambahkan'}</button></div>
     </div>`;
-  // Render existing gallery photos
-  setTimeout(() => renderDocGalleryPreview(), 50);
 }
 
 function onFormImgChange(evt) {
@@ -1002,41 +918,6 @@ function onFormImgChange(evt) {
     if (prev) { prev.src = _formImgData; prev.style.display = 'block'; }
   };
   reader.readAsDataURL(file);
-}
-
-function renderDocGalleryPreview() {
-  const wrap = document.getElementById('docGalleryPreview');
-  const countEl = document.getElementById('docGalleryCount');
-  if (!wrap) return;
-  wrap.innerHTML = _formDocGallery.map((src, i) => `
-    <div style="position:relative">
-      <img src="${src}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;border:1.5px solid var(--border)">
-      <button onclick="removeDocGalleryImg(${i})" style="position:absolute;top:4px;right:4px;background:rgba(220,38,38,.9);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1" title="Hapus">✕</button>
-    </div>`).join('');
-  if (countEl) countEl.textContent = `${_formDocGallery.length}/10 foto`;
-}
-
-function onDocGalleryChange(evt) {
-  const files = Array.from(evt.target.files);
-  const remaining = 10 - _formDocGallery.length;
-  const toAdd = files.slice(0, remaining);
-  if (files.length > remaining) alert(`Hanya ${remaining} foto lagi yang bisa ditambahkan (maks 10).`);
-  let loaded = 0;
-  toAdd.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      _formDocGallery.push(e.target.result);
-      loaded++;
-      if (loaded === toAdd.length) renderDocGalleryPreview();
-    };
-    reader.readAsDataURL(file);
-  });
-  evt.target.value = '';
-}
-
-function removeDocGalleryImg(idx) {
-  _formDocGallery.splice(idx, 1);
-  renderDocGalleryPreview();
 }
 
 async function saveEntry() {
@@ -1067,7 +948,6 @@ async function saveEntry() {
   }
   await saveEntries(_entries);
   if (_formImgData) await saveEntryImg(id, _formImgData);
-  await saveDocGallery(id, _formDocGallery);
   renderGrid(currentCat);
   updateStats();
   showAdminDashboard('entries');
@@ -1078,38 +958,10 @@ async function deleteEntry(id) {
   _entries = _entries.filter(e => e.id !== id);
   await saveEntries(_entries);
   await deleteEntryImg(id);
-  await deleteDocGallery(id);
   renderGrid(currentCat);
   updateStats();
   showAdminDashboard('entries');
 }
-
-// ══════════════════════════════════════════════════════
-//  LIGHTBOX (galeri dokumentasi)
-// ══════════════════════════════════════════════════════
-let _lightboxGallery = [];
-let _lightboxIdx = 0;
-
-async function openLightbox(entryId, idx) {
-  _lightboxGallery = await loadDocGallery(entryId);
-  _lightboxIdx = idx;
-  document.getElementById('lightboxImg').src = _lightboxGallery[idx];
-  document.getElementById('lightboxOverlay').classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
-function closeLightbox(evt) {
-  if (evt && evt.target && evt.target.id !== 'lightboxOverlay' && !evt.target.classList.contains('lightbox-close')) return;
-  document.getElementById('lightboxOverlay').classList.remove('show');
-  document.body.style.overflow = '';
-}
-function lightboxNav(dir) {
-  _lightboxIdx = (_lightboxIdx + dir + _lightboxGallery.length) % _lightboxGallery.length;
-  document.getElementById('lightboxImg').src = _lightboxGallery[_lightboxIdx];
-}
-// Close lightbox when clicking overlay background
-document.getElementById('lightboxOverlay').addEventListener('click', function(e) {
-  if (e.target === this) { this.classList.remove('show'); document.body.style.overflow = ''; }
-});
 
 // ══════════════════════════════════════════════════════
 //  EXPOSE FUNCTIONS TO WINDOW (diperlukan karena type=module)
@@ -1126,8 +978,6 @@ window.showEditForm = showEditForm;
 window.saveEntry = saveEntry;
 window.deleteEntry = deleteEntry;
 window.onFormImgChange = onFormImgChange;
-window.onDocGalleryChange = onDocGalleryChange;
-window.removeDocGalleryImg = removeDocGalleryImg;
 window.onProfileImgChange = onProfileImgChange;
 window.previewProfilePos = previewProfilePos;
 window.saveProfilePhoto = saveProfilePhoto;
@@ -1136,9 +986,6 @@ window.saveSocialLinks = saveSocialLinks;
 window.showLoginForm = showLoginForm;
 window.closeAdminPanel = closeAdminPanel;
 window.doLogin = doLogin;
-window.openLightbox = openLightbox;
-window.closeLightbox = closeLightbox;
-window.lightboxNav = lightboxNav;
 
 // ══════════════════════════════════════════════════════
 //  START
