@@ -3,384 +3,538 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dwi Rahmi Paneo — Portfolio Farmasi</title>
+<title>Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#F0F4F8;--surface:#FFFFFF;--surface2:#E8EFF7;--border:#D0DCE8;--border2:#B8CEDE;
-  --primary:#1A5FA8;--primary-light:#2E7BC4;--primary-pale:#EBF3FC;
-  --accent:#0EA5E9;--accent-pale:#E0F2FE;
-  --text-primary:#0F2A44;--text-secondary:#3D5A75;--text-muted:#7A98B5;
-  --research-bg:#EDE9FF;--research-text:#4A3FA0;--research-dot:#7B6FE0;
-  --academic-bg:#E0F5EC;--academic-text:#1A6B46;--academic-dot:#2DB877;
-  --internship-bg:#FFF3E0;--internship-text:#8B4F00;--internship-dot:#F59E0B;
-  --work-bg:#FFE9E8;--work-text:#8B2020;--work-dot:#F05252;
-  --org-bg:#E0F2FE;--org-text:#0369A1;--org-dot:#0EA5E9;
+  --navy:#0A0F2C;--navy2:#0F1535;--navy3:#151C42;--navy4:#1C245A;
+  --blue:#1E3A8A;--blue2:#2563EB;--blue3:#3B82F6;
+  --accent:#EF4444;--accent2:#F97316;
+  --cyan:#06B6D4;--cyan2:#67E8F9;
+  --white:#FFFFFF;--white2:rgba(255,255,255,.85);--white3:rgba(255,255,255,.55);--white4:rgba(255,255,255,.18);--white5:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.10);--border2:rgba(255,255,255,.18);
+  --glass:rgba(255,255,255,.06);--glass2:rgba(255,255,255,.10);
+  --sidebar-w:260px;
+  --org-col:#8B5CF6;--work-col:#F59E0B;--magang-col:#10B981;--pengabdian-col:#EC4899;--akademik-col:#3B82F6;
 }
-body{background:var(--bg);color:var(--text-primary);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--white2);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0)}
 
-/* ── FLOATING ADMIN BUTTON ── */
-.floating-admin-btn{
-  position:fixed;top:16px;right:20px;z-index:500;
+/* ═══ TOP NAVBAR ═══ */
+.sidebar{
+  width:100%;
+  background:rgba(10,15,44,.92);
+  border-bottom:1px solid var(--border);
+  position:fixed;top:0;left:0;height:64px;
+  display:flex;align-items:center;
+  z-index:200;transition:all .35s cubic-bezier(.16,1,.3,1);
+  backdrop-filter:blur(20px);
+  padding:0 32px;gap:0;
+}
+.sidebar-logo{padding:0 28px 0 0;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center;height:100%;flex-shrink:0}
+.sidebar-logo-text{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--white);letter-spacing:-.02em}
+.sidebar-logo-sub{font-size:9px;color:var(--white3);font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+
+.sidebar-nav{flex:1;overflow:visible;padding:0 0 0 20px;display:flex;flex-direction:row;align-items:center;gap:2px}
+.nav-label{display:none}
+.nav-item{
   display:flex;align-items:center;gap:7px;
-  padding:9px 18px;
-  background:rgba(255,255,255,0.95);
-  border:1.5px solid var(--border2);
-  border-radius:100px;
-  font-size:12px;font-weight:700;
-  color:var(--text-secondary);
-  cursor:pointer;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  font-family:'Plus Jakarta Sans',sans-serif;
-  box-shadow:0 4px 20px rgba(26,95,168,.15);
-  transition:all .25s;
-  backdrop-filter:blur(12px);
+  padding:8px 14px;border-radius:10px;
+  font-size:13px;font-weight:600;color:var(--white3);
+  cursor:pointer;transition:all .2s;text-decoration:none;
+  border:1px solid transparent;
+  background:none;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;
+  white-space:nowrap;
 }
-.floating-admin-btn:hover{
-  border-color:var(--primary);color:var(--primary);
-  background:rgba(235,243,252,0.98);
-  transform:translateY(-1px);
-  box-shadow:0 6px 28px rgba(26,95,168,.22);
+.nav-item:hover{color:var(--white);background:var(--white5)}
+.nav-item.active{color:var(--white);background:var(--glass2);border-color:var(--border2)}
+.nav-item .nav-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;transition:all .2s}
+.nav-item.active .nav-icon{background:var(--blue2)}
+.nav-item:not(.active):hover .nav-icon{background:var(--white5)}
+.nav-item .nav-text{flex:1}
+.nav-item .nav-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* Sub-nav for Experiences — dropdown */
+.sub-nav{
+  position:absolute;top:100%;left:0;
+  display:flex;flex-direction:column;gap:2px;
+  background:var(--navy2);border:1px solid var(--border2);border-radius:14px;
+  padding:8px;min-width:160px;
+  box-shadow:0 16px 40px rgba(0,0,0,.4);
+  overflow:hidden;max-height:0;opacity:0;pointer-events:none;
+  transition:max-height .3s ease,opacity .2s ease;
 }
-.floating-admin-btn .admin-icon{font-size:15px}
+.sub-nav.open{max-height:300px;opacity:1;pointer-events:all}
+/* wrapper for exp button + dropdown */
+.nav-exp-wrap{position:relative;display:flex;flex-direction:column}
+.sub-nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 14px;border-radius:8px;
+  font-size:12px;font-weight:600;color:var(--white3);
+  cursor:pointer;transition:all .2s;border:none;background:none;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;
+}
+.sub-nav-item:hover{color:var(--white);background:var(--white5)}
+.sub-nav-item.active{color:var(--white)}
+.sub-nav-item .sub-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 
-/* ── TOP NAV ── */
-.top-nav{background:rgba(255,255,255,0.97);border-bottom:1px solid var(--border);padding:0 64px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;backdrop-filter:blur(16px)}
-.top-nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--primary);font-size:15px;text-decoration:none}
-.logo-icon{width:36px;height:36px;background:var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;flex-shrink:0}
-.top-nav-links{display:flex;align-items:center;gap:6px}
-.top-nav-link{padding:8px 14px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;border-radius:8px;transition:all .2s}
-.top-nav-link:hover,.top-nav-link.active{background:var(--primary-pale);color:var(--primary)}
-.top-nav-right{display:flex;align-items:center;gap:10px;padding-right:130px}
-.social-link{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .2s;text-decoration:none;color:var(--text-muted);font-size:16px}
-.social-link:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-pale);transform:translateY(-1px)}
-.social-link.ig:hover{border-color:#E1306C;color:#E1306C;background:#fff0f5}
-.social-link.fb:hover{border-color:#1877F2;color:#1877F2;background:#f0f5ff}
-.social-link.wa:hover{border-color:#25D366;color:#25D366;background:#f0fff4}
-.social-link.em:hover{border-color:#EA4335;color:#EA4335;background:#fff5f5}
-.social-link.li:hover{border-color:#0A66C2;color:#0A66C2;background:#f0f7ff}
+.nav-chevron{font-size:10px;transition:transform .25s;color:var(--white3)}
+.nav-item.exp-open .nav-chevron{transform:rotate(90deg)}
 
-/* ── DOCUMENTATION GALLERY ── */
-.doc-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:4px}
-.doc-gallery-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:pointer;border:1.5px solid var(--border);transition:transform .2s,border-color .2s}
-.doc-gallery-img:hover{transform:scale(1.04);border-color:var(--primary-light)}
-.doc-gallery-placeholder{width:100%;aspect-ratio:4/3;background:var(--surface2);border:2px dashed var(--border2);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:10px;text-align:center;padding:8px;flex-direction:column;gap:6px}
-/* Lightbox */
-.lightbox-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:400;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-.lightbox-overlay.show{display:flex}
-.lightbox-img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:12px;box-shadow:0 24px 80px rgba(0,0,0,.5)}
-.lightbox-close{position:absolute;top:20px;right:24px;color:#fff;font-size:28px;cursor:pointer;background:rgba(255,255,255,.15);border:none;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s}
-.lightbox-close:hover{background:rgba(255,255,255,.28)}
-.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;font-size:22px;cursor:pointer;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s}
-.lightbox-nav:hover{background:rgba(255,255,255,.28)}
-.lightbox-prev{left:20px}
-.lightbox-next{right:20px}
+.sidebar-bottom{margin-left:auto;padding:0;border-top:none;flex-shrink:0}
+.admin-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 14px;border-radius:10px;
+  font-size:12px;font-weight:700;letter-spacing:.04em;
+  color:var(--white3);background:var(--white5);
+  border:1px solid var(--border);
+  cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;
+  white-space:nowrap;
+}
+.admin-btn:hover{color:var(--white);background:var(--glass2);border-color:var(--border2)}
 
-/* ── HERO ── */
-.hero{position:relative;overflow:hidden;background:var(--primary);min-height:480px;display:flex;align-items:center}
-.hero-bg-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,42,68,0.92) 0%,rgba(26,95,168,0.80) 50%,rgba(14,165,233,0.60) 100%);z-index:1}
-.hero-content{position:relative;z-index:2;padding:72px 64px;display:flex;align-items:center;gap:56px;width:100%}
-.hero-text{flex:1;min-width:0}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);color:#fff;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:20px;border:1px solid rgba(255,255,255,.2)}
-.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
-.hero-name{font-family:'Fraunces',serif;font-size:clamp(42px,5.5vw,72px);font-weight:700;line-height:.95;letter-spacing:-.03em;color:#fff;margin-bottom:10px}
-.hero-name em{font-style:italic;color:var(--accent)}
-.hero-degree{font-size:clamp(16px,2vw,20px);font-weight:400;color:rgba(255,255,255,.75);margin-bottom:18px;font-style:italic}
-.hero-desc{font-size:15px;color:rgba(255,255,255,.80);max-width:460px;line-height:1.75;margin-bottom:32px}
+/* ═══ MAIN CONTENT ═══ */
+.main{margin-left:0;margin-top:64px;flex:1;min-height:calc(100vh - 64px)}
+
+/* ═══ HERO (About Me) ═══ */
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 40%,var(--navy4) 100%);
+  min-height:calc(100vh - 64px);display:flex;align-items:center;padding:80px 138px;
+}
+.hero-glow{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero-glow::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.25) 0%,transparent 70%);top:-100px;right:-100px}
+.hero-glow::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,.15) 0%,transparent 70%);bottom:-50px;left:20%}
+.hero-particles{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(255,255,255,.3);animation:float linear infinite}
+@keyframes float{0%{transform:translateY(100vh) translateX(0);opacity:0}10%{opacity:.6}90%{opacity:.2}100%{transform:translateY(-20px) translateX(30px);opacity:0}}
+.hero-content{position:relative;z-index:1;display:flex;align-items:center;gap:64px;width:100%;max-width:1100px}
+.hero-left{flex:1;min-width:0}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(37,99,235,.2);border:1px solid rgba(59,130,246,.35);color:var(--cyan2);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:22px}
+.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.hero-greeting{font-size:16px;font-weight:500;color:var(--white3);margin-bottom:8px;letter-spacing:.02em}
+.hero-name{font-family:'Fraunces',serif;font-size:clamp(44px,6vw,80px);font-weight:700;line-height:.92;letter-spacing:-.035em;color:var(--white);margin-bottom:14px}
+.hero-name em{font-style:italic;color:var(--cyan2)}
+.hero-title{font-size:clamp(15px,1.8vw,18px);font-weight:400;color:var(--white3);margin-bottom:22px;font-style:italic}
+.hero-desc{font-size:14.5px;color:rgba(255,255,255,.70);max-width:500px;line-height:1.85;margin-bottom:36px}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-.btn-hero-primary{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--primary);padding:12px 26px;border-radius:100px;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s}
-.btn-hero-primary:hover{background:var(--accent-pale);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--blue2);color:#fff;padding:13px 28px;border-radius:100px;font-size:13px;font-weight:700;text-decoration:none;transition:all .25s;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif}
+.btn-primary:hover{background:var(--blue3);transform:translateY(-2px);box-shadow:0 12px 32px rgba(37,99,235,.4)}
+.btn-ghost-hero{display:inline-flex;align-items:center;gap:8px;background:var(--white5);color:var(--white2);padding:13px 24px;border-radius:100px;font-size:13px;font-weight:600;text-decoration:none;transition:all .25s;border:1px solid var(--border2)}
+.btn-ghost-hero:hover{background:var(--glass2);border-color:rgba(255,255,255,.3)}
 
-/* Hero right side — profile photo card */
-.hero-card{background:rgba(255,255,255,.12);backdrop-filter:blur(12px);border:1.5px solid rgba(255,255,255,.22);border-radius:20px;padding:24px;width:320px;flex-shrink:0}
-.hero-card-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:700;margin-bottom:14px}
-/* Profile photo display with position offset */
-.hero-photo-display-wrap{width:100%;height:200px;border-radius:12px;overflow:hidden;position:relative;background:rgba(255,255,255,.10)}
-.hero-photo-display{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:object-position .3s}
-.hero-card-photo-placeholder{width:100%;height:200px;border-radius:12px;background:rgba(255,255,255,.10);border:2px dashed rgba(255,255,255,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:rgba(255,255,255,.6);font-size:12px;text-align:center;padding:16px}
-.hero-card-photo-placeholder svg{opacity:.6}
-.hero-stats-row{display:flex;gap:0;margin-top:16px;border-top:1px solid rgba(255,255,255,.15);padding-top:16px}
-.hero-stat{flex:1;text-align:center;border-right:1px solid rgba(255,255,255,.15)}
-.hero-stat:last-child{border-right:none}
-.hero-stat-num{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#fff;line-height:1}
-.hero-stat-label{font-size:9px;color:rgba(255,255,255,.55);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+/* Hero right: photo — frameless */
+.hero-card{
+  width:380px;flex-shrink:0;
+  position:relative;
+}
+.hero-card::before{display:none}
+.hero-card-label{display:none}
+.hero-photo-wrap{width:100%;height:380px;border-radius:50%;overflow:hidden;background:transparent;position:relative}
+.hero-photo{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.hero-photo-placeholder{width:380px;height:380px;border-radius:50%;background:var(--white5);border:2px dashed var(--border2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--white3);font-size:14px;text-align:center;padding:24px}
+.hero-stats{display:none}
 
-/* ── FILTER NAV ── */
-.filter-nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 64px;display:flex;align-items:center;gap:0;overflow-x:auto;position:sticky;top:64px;z-index:90}
-.filter-btn{padding:16px 18px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--text-muted);background:none;border:none;cursor:pointer;white-space:nowrap;border-bottom:2.5px solid transparent;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;gap:7px}
-.filter-btn:hover{color:var(--text-primary)}
-.filter-btn.active{color:var(--text-primary)}
-.filter-btn[data-cat="all"].active{border-bottom-color:var(--primary)}
-.filter-btn[data-cat="research"].active{color:var(--research-text);border-bottom-color:var(--research-dot)}
-.filter-btn[data-cat="academic"].active{color:var(--academic-text);border-bottom-color:var(--academic-dot)}
-.filter-btn[data-cat="internship"].active{color:var(--internship-text);border-bottom-color:var(--internship-dot)}
-.filter-btn[data-cat="work"].active{color:var(--work-text);border-bottom-color:var(--work-dot)}
-.filter-btn[data-cat="organization"].active{color:var(--org-text);border-bottom-color:var(--org-dot)}
-.filter-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+/* ═══ SECTION PAGES ═══ */
+.page{display:none;min-height:100vh;padding:56px 138px}
+.page.active{display:block}
+.page-header{margin-bottom:40px}
+.page-eyebrow{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.page-eyebrow::before{content:'';width:24px;height:2px;background:var(--cyan);border-radius:2px}
+.page-title{font-family:'Fraunces',serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;letter-spacing:-.03em;color:var(--white);line-height:1.05;margin-bottom:12px}
+.page-title em{font-style:italic;color:var(--cyan2)}
+.page-desc{font-size:14px;color:var(--white3);max-width:580px;line-height:1.75}
 
-/* ── CATALOG ── */
-.catalog{padding:56px 64px}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px;gap:16px}
-.section-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--text-primary)}
-.item-count{font-size:12px;color:var(--text-muted);background:var(--surface);padding:4px 12px;border-radius:100px;font-weight:600;white-space:nowrap;border:1px solid var(--border)}
+/* ── EXPERIENCE sub-tabs ── */
+.exp-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:32px}
+.exp-tab{
+  padding:8px 18px;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:.04em;
+  color:var(--white3);background:var(--white5);border:1px solid var(--border);
+  cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;
+  display:flex;align-items:center;gap:7px;
+}
+.exp-tab:hover{color:var(--white);border-color:var(--border2)}
+.exp-tab.active{color:var(--white);border-color:transparent}
+.exp-tab[data-sub="organisasi"].active{background:rgba(139,92,246,.25);border-color:rgba(139,92,246,.5);color:#C4B5FD}
+.exp-tab[data-sub="kerja"].active{background:rgba(245,158,11,.2);border-color:rgba(245,158,11,.4);color:#FCD34D}
+.exp-tab[data-sub="magang"].active{background:rgba(16,185,129,.2);border-color:rgba(16,185,129,.4);color:#6EE7B7}
+.exp-tab[data-sub="pengabdian"].active{background:rgba(236,72,153,.2);border-color:rgba(236,72,153,.4);color:#F9A8D4}
+.exp-tab[data-sub="akademik"].active{background:rgba(59,130,246,.2);border-color:rgba(59,130,246,.4);color:#93C5FD}
+.exp-tab-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.exp-tab[data-sub="organisasi"] .exp-tab-dot{background:var(--org-col)}
+.exp-tab[data-sub="kerja"] .exp-tab-dot{background:var(--work-col)}
+.exp-tab[data-sub="magang"] .exp-tab-dot{background:var(--magang-col)}
+.exp-tab[data-sub="pengabdian"] .exp-tab-dot{background:var(--pengabdian-col)}
+.exp-tab[data-sub="akademik"] .exp-tab-dot{background:var(--akademik-col)}
 
-/* ── GRID ── */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
-
-/* ── CARD with pop-up hover effect ── */
+/* ── CARDS ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
 .card{
-  background:var(--surface);border:1px solid var(--border);border-radius:20px;
-  cursor:pointer;display:flex;flex-direction:column;gap:0;
-  text-decoration:none;color:var(--text-primary);position:relative;overflow:hidden;
-  transition:transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, border-color .3s ease;
-  will-change:transform;
+  background:var(--glass);border:1px solid var(--border);border-radius:18px;
+  overflow:hidden;cursor:pointer;transition:all .3s cubic-bezier(.34,1.56,.64,1);
+  text-decoration:none;display:flex;flex-direction:column;
 }
-.card:hover{
-  border-color:var(--primary-light);
-  transform:translateY(-8px) scale(1.018);
-  box-shadow:0 20px 56px rgba(26,95,168,.16), 0 4px 12px rgba(26,95,168,.08);
-}
-/* Subtle glow ring on hover */
-.card::after{
-  content:'';position:absolute;inset:-1px;border-radius:20px;
-  background:linear-gradient(135deg,rgba(46,123,196,.12),rgba(14,165,233,.06));
-  opacity:0;transition:opacity .3s;pointer-events:none;
-}
-.card:hover::after{opacity:1}
-
-.card-img-wrap{width:100%;height:170px;overflow:hidden;border-radius:0;flex-shrink:0;background:var(--surface2);position:relative}
-.card-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
-.card:hover .card-img{transform:scale(1.06)}
-.card-img-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text-muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase;transition:background .2s}
-.card-body{padding:22px 24px;display:flex;flex-direction:column;gap:12px;flex:1}
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.card-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:100px}
-.cat-research .card-badge{background:var(--research-bg);color:var(--research-text)}
-.cat-academic .card-badge{background:var(--academic-bg);color:var(--academic-text)}
-.cat-internship .card-badge{background:var(--internship-bg);color:var(--internship-text)}
-.cat-work .card-badge{background:var(--work-bg);color:var(--work-text)}
-.cat-organization .card-badge{background:var(--org-bg);color:var(--org-text)}
+.card:hover{border-color:var(--border2);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.35),0 0 0 1px var(--border2)}
+.card-img-wrap{height:160px;overflow:hidden;background:var(--white5);flex-shrink:0;position:relative}
+.card-img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
+.card:hover .card-img{transform:scale(1.07)}
+.card-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--white3);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.card-body{padding:20px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.card-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px}
+.cat-organisasi .card-badge{background:rgba(139,92,246,.2);color:#C4B5FD}
+.cat-kerja .card-badge{background:rgba(245,158,11,.15);color:#FCD34D}
+.cat-magang .card-badge{background:rgba(16,185,129,.15);color:#6EE7B7}
+.cat-pengabdian .card-badge{background:rgba(236,72,153,.15);color:#F9A8D4}
+.cat-akademik .card-badge{background:rgba(59,130,246,.18);color:#93C5FD}
 .card-badge-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.cat-research .card-badge-dot{background:var(--research-dot)}
-.cat-academic .card-badge-dot{background:var(--academic-dot)}
-.cat-internship .card-badge-dot{background:var(--internship-dot)}
-.cat-work .card-badge-dot{background:var(--work-dot)}
-.cat-organization .card-badge-dot{background:var(--org-dot)}
-.card-year{font-size:11px;color:var(--text-muted);font-weight:500}
-.card-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;line-height:1.25;letter-spacing:-.02em;color:var(--text-primary)}
-.card-desc{font-size:13px;color:var(--text-secondary);line-height:1.65;flex:1}
-.card-tags{display:flex;gap:6px;flex-wrap:wrap}
-.tag{font-size:10px;padding:4px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:100px;color:var(--text-secondary);font-weight:500}
-.card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--border);margin-top:4px}
-.card-date-chip{font-size:11px;color:var(--text-muted)}
-.card-arrow{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--text-muted);transition:all .25s;flex-shrink:0}
-.card:hover .card-arrow{background:var(--primary);border-color:var(--primary);color:#fff;transform:rotate(-45deg)}
+.cat-organisasi .card-badge-dot{background:var(--org-col)}
+.cat-kerja .card-badge-dot{background:var(--work-col)}
+.cat-magang .card-badge-dot{background:var(--magang-col)}
+.cat-pengabdian .card-badge-dot{background:var(--pengabdian-col)}
+.cat-akademik .card-badge-dot{background:var(--akademik-col)}
+.card-year{font-size:11px;color:var(--white3);font-weight:500;white-space:nowrap}
+.card-title{font-family:'Fraunces',serif;font-size:17px;font-weight:700;line-height:1.25;color:var(--white)}
+.card-desc{font-size:13px;color:var(--white3);line-height:1.65;flex:1}
+.card-tags{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:10px;padding:3px 10px;background:var(--white5);border:1px solid var(--border);border-radius:100px;color:var(--white3);font-weight:500}
+.card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--border);margin-top:4px}
+.card-arrow{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--white3);transition:all .25s;flex-shrink:0}
+.card:hover .card-arrow{background:var(--blue2);border-color:var(--blue2);color:#fff;transform:rotate(-45deg)}
+.empty-state{padding:60px 0;text-align:center;color:var(--white3)}
+.empty-state .empty-icon{font-size:36px;margin-bottom:14px}
+.empty-state p{font-size:13px;line-height:1.7}
+
+/* ── SERTIFIKAT ── */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.cert-card{
+  background:var(--glass);border:1px solid var(--border);border-radius:16px;
+  padding:22px;display:flex;flex-direction:column;gap:14px;
+  cursor:pointer;transition:all .25s;
+}
+.cert-card:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 16px 50px rgba(0,0,0,.3)}
+.cert-icon{width:46px;height:46px;border-radius:12px;background:rgba(37,99,235,.2);border:1px solid rgba(59,130,246,.3);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.cert-info{flex:1}
+.cert-title{font-weight:700;font-size:14px;color:var(--white);line-height:1.3;margin-bottom:6px}
+.cert-issuer{font-size:12px;color:var(--white3);font-weight:500}
+.cert-year{font-size:11px;color:var(--white3);margin-top:4px}
+.cert-img-wrap{width:100%;height:130px;border-radius:10px;overflow:hidden;background:var(--white5)}
+.cert-img{width:100%;height:100%;object-fit:cover}
+.cert-img-placeholder{width:100%;height:130px;border-radius:10px;background:var(--white5);border:1.5px dashed var(--border2);display:flex;align-items:center;justify-content:center;color:var(--white3);font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+.cert-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);color:#6EE7B7;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px;align-self:flex-start}
+
+/* ── MEDIA SOSIAL ── */
+.social-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;max-width:860px}
+.social-card{
+  background:var(--glass);border:1px solid var(--border);border-radius:16px;
+  padding:24px;display:flex;flex-direction:column;align-items:center;gap:14px;
+  text-decoration:none;transition:all .25s;cursor:pointer;
+}
+.social-card:hover{transform:translateY(-5px)}
+.social-card.ig:hover{border-color:#E1306C;box-shadow:0 16px 50px rgba(225,48,108,.2)}
+.social-card.fb:hover{border-color:#1877F2;box-shadow:0 16px 50px rgba(24,119,242,.2)}
+.social-card.wa:hover{border-color:#25D366;box-shadow:0 16px 50px rgba(37,211,102,.2)}
+.social-card.em:hover{border-color:#EA4335;box-shadow:0 16px 50px rgba(234,67,53,.2)}
+.social-card.li:hover{border-color:#0A66C2;box-shadow:0 16px 50px rgba(10,102,194,.2)}
+.social-card.tt:hover{border-color:#fff;box-shadow:0 16px 50px rgba(255,255,255,.1)}
+.social-icon-wrap{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px}
+.social-card.ig .social-icon-wrap{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+.social-card.fb .social-icon-wrap{background:#1877F2}
+.social-card.wa .social-icon-wrap{background:#25D366}
+.social-card.em .social-icon-wrap{background:#EA4335}
+.social-card.li .social-icon-wrap{background:#0A66C2}
+.social-card.tt .social-icon-wrap{background:#010101;border:1px solid var(--border2)}
+.social-name{font-size:13px;font-weight:700;color:var(--white)}
+.social-handle{font-size:11px;color:var(--white3);word-break:break-all;text-align:center}
+.social-empty-note{font-size:11px;color:var(--white3);font-style:italic;text-align:center;padding:40px 0}
 
 /* ── DETAIL MODAL ── */
-.overlay{position:fixed;inset:0;background:rgba(15,42,68,.55);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(6px)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(6px)}
 .overlay.show{opacity:1;pointer-events:all}
-.modal{position:fixed;top:0;right:0;width:min(680px,100vw);height:100vh;background:var(--surface);border-left:1px solid var(--border);z-index:201;transform:translateX(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);overflow-y:auto}
+.modal{position:fixed;top:0;right:0;width:min(680px,100vw);height:100vh;background:var(--navy2);border-left:1px solid var(--border);z-index:301;transform:translateX(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);overflow-y:auto}
 .modal.show{transform:translateX(0)}
-.modal-header{padding:28px 36px 20px;position:sticky;top:0;background:var(--surface);border-bottom:1px solid var(--border);z-index:10}
+.modal-header{padding:28px 32px 20px;position:sticky;top:0;background:var(--navy2);border-bottom:1px solid var(--border);z-index:10}
 .modal-header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.modal-close{width:36px;height:36px;border:1px solid var(--border2);background:none;color:var(--text-secondary);cursor:pointer;border-radius:50%;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.modal-close:hover{background:var(--surface2);color:var(--text-primary)}
-.modal-cat-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:100px}
-.modal-title{font-family:'Fraunces',serif;font-size:clamp(20px,3vw,30px);font-weight:700;line-height:1.1;letter-spacing:-.025em}
-.modal-year{font-size:12px;color:var(--text-muted);margin-top:8px;font-weight:500}
-.modal-body{padding:28px 36px 60px}
-.modal-img{width:100%;height:260px;object-fit:cover;border-radius:14px;margin-bottom:28px}
-.modal-img-placeholder{width:100%;height:200px;background:var(--surface2);border-radius:14px;margin-bottom:28px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:12px;letter-spacing:.12em;text-transform:uppercase;border:1.5px dashed var(--border2)}
+.modal-close{width:36px;height:36px;border:1px solid var(--border2);background:var(--white5);color:var(--white2);cursor:pointer;border-radius:50%;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-close:hover{background:var(--glass2);color:var(--white)}
+.modal-cat-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px}
+.modal-title{font-family:'Fraunces',serif;font-size:clamp(20px,3vw,30px);font-weight:700;line-height:1.1;letter-spacing:-.025em;color:var(--white)}
+.modal-year{font-size:12px;color:var(--white3);margin-top:8px;font-weight:500}
+.modal-body{padding:28px 32px 60px}
+.modal-img{width:100%;height:240px;object-fit:cover;border-radius:14px;margin-bottom:28px}
+.modal-img-placeholder{width:100%;height:180px;background:var(--white5);border-radius:14px;margin-bottom:28px;display:flex;align-items:center;justify-content:center;color:var(--white3);font-size:12px;letter-spacing:.12em;text-transform:uppercase;border:1.5px dashed var(--border2)}
 .modal-section{margin-bottom:28px}
-.modal-section-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.modal-section-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--white3);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .modal-section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.modal-text{font-size:14px;color:var(--text-secondary);line-height:1.8}
+.modal-text{font-size:14px;color:var(--white3);line-height:1.8}
 .modal-list{list-style:none;display:flex;flex-direction:column;gap:10px}
-.modal-list li{font-size:14px;color:var(--text-secondary);line-height:1.65;padding:10px 14px;background:var(--surface2);border-radius:10px;border-left:3px solid var(--primary)}
+.modal-list li{font-size:14px;color:var(--white3);line-height:1.65;padding:10px 14px;background:var(--white5);border-radius:10px;border-left:3px solid var(--blue2)}
 .modal-tags{display:flex;gap:8px;flex-wrap:wrap}
-.modal-link{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--primary);background:var(--primary-pale);padding:10px 20px;border-radius:10px;text-decoration:none;transition:all .2s;margin-top:4px}
-.modal-link:hover{background:var(--accent-pale);color:var(--accent)}
+.modal-link{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--cyan2);background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);padding:10px 20px;border-radius:10px;text-decoration:none;transition:all .2s;margin-top:4px}
+.modal-link:hover{background:rgba(6,182,212,.2)}
+/* doc gallery */
+.doc-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:4px}
+.doc-gallery-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:pointer;border:1.5px solid var(--border);transition:all .2s}
+.doc-gallery-img:hover{transform:scale(1.04);border-color:var(--border2)}
+/* lightbox */
+.lightbox-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.lightbox-overlay.show{display:flex}
+.lightbox-img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:12px}
+.lightbox-close{position:absolute;top:20px;right:24px;color:#fff;font-size:22px;cursor:pointer;background:rgba(255,255,255,.12);border:none;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lightbox-close:hover{background:rgba(255,255,255,.25)}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:#fff;font-size:20px;cursor:pointer;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lightbox-nav:hover{background:rgba(255,255,255,.25)}
+.lightbox-prev{left:20px}.lightbox-next{right:20px}
 
 /* ── ADMIN PANEL ── */
-.admin-overlay{position:fixed;inset:0;background:rgba(15,42,68,.65);z-index:300;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:400;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
 .admin-overlay.show{display:flex}
-.admin-panel{background:var(--surface);border:1px solid var(--border);border-radius:24px;width:min(660px,95vw);max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.18)}
-.admin-panel-header{padding:24px 28px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--surface);border-radius:24px 24px 0 0;z-index:5}
-.admin-panel-header h2{font-family:'Fraunces',serif;font-size:20px;font-weight:700}
-.admin-panel-body{padding:24px 28px}
+.admin-panel{background:var(--navy2);border:1px solid var(--border2);border-radius:22px;width:min(660px,95vw);max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+.admin-panel-header{padding:22px 26px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--navy2);border-radius:22px 22px 0 0;z-index:5}
+.admin-panel-header h2{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--white)}
+.admin-panel-body{padding:22px 26px}
 .form-group{margin-bottom:18px}
-.form-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:8px;font-weight:600}
-.form-input,.form-select,.form-textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);color:var(--text-primary);padding:11px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;border-radius:12px;transition:border-color .2s;outline:none}
-.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--primary)}
-.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239C9A94' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.form-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--white3);display:block;margin-bottom:8px;font-weight:600}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--white5);border:1.5px solid var(--border);color:var(--white);padding:11px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;border-radius:12px;transition:border-color .2s;outline:none}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue2)}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--white3)}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23aaa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-color:var(--white5)}
+.form-select option{background:var(--navy2);color:var(--white)}
 .form-textarea{resize:vertical;min-height:90px;line-height:1.6}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.btn-primary{background:var(--primary);color:#fff;border:none;padding:12px 28px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;cursor:pointer;border-radius:12px;transition:all .2s}
-.btn-primary:hover{background:var(--primary-light)}
-.btn-ghost{background:var(--surface2);color:var(--text-secondary);border:1px solid var(--border);padding:12px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border-radius:12px;transition:all .2s}
-.btn-ghost:hover{color:var(--text-primary);border-color:var(--border2)}
-.btn-danger{background:none;color:#dc2626;border:1.5px solid #fecaca;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s}
-.btn-danger:hover{background:#fef2f2;border-color:#f87171}
+.btn-admin-primary{background:var(--blue2);color:#fff;border:none;padding:12px 28px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;cursor:pointer;border-radius:12px;transition:all .2s}
+.btn-admin-primary:hover{background:var(--blue3)}
+.btn-admin-ghost{background:var(--white5);color:var(--white2);border:1px solid var(--border);padding:12px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border-radius:12px;transition:all .2s}
+.btn-admin-ghost:hover{color:var(--white);border-color:var(--border2)}
+.btn-danger{background:none;color:#f87171;border:1.5px solid rgba(248,113,113,.3);padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s}
+.btn-danger:hover{background:rgba(248,113,113,.1);border-color:#f87171}
 .btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
-.login-box{padding:48px 28px;text-align:center}
-.lock-emoji{font-size:40px;margin-bottom:16px}
-.login-box h3{font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:8px}
-.login-box p{font-size:13px;color:var(--text-secondary);margin-bottom:28px;line-height:1.6}
+.admin-tabs{display:flex;gap:0;border-bottom:1.5px solid var(--border);margin-bottom:20px;flex-wrap:wrap}
+.admin-tab{padding:10px 16px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--white3);background:none;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border-bottom:2.5px solid transparent;margin-bottom:-1.5px;transition:all .2s}
+.admin-tab.active{color:var(--white);border-bottom-color:var(--blue2)}
+.admin-tab-content{display:none}.admin-tab-content.active{display:block}
 .entry-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
-.entry-item{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:border-color .2s}
+.entry-item{background:var(--white5);border:1px solid var(--border);border-radius:14px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:border-color .2s}
 .entry-item:hover{border-color:var(--border2)}
-.entry-item-title{font-size:14px;font-weight:600;color:var(--text-primary)}
-.entry-item-meta{font-size:11px;color:var(--text-muted);margin-top:3px}
+.entry-item-title{font-size:14px;font-weight:600;color:var(--white)}
+.entry-item-meta{font-size:11px;color:var(--white3);margin-top:3px}
 .entry-actions{display:flex;gap:8px;flex-shrink:0}
-.btn-edit{background:var(--surface2);color:var(--text-secondary);border:1px solid var(--border);padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s}
-.btn-edit:hover{color:var(--text-primary);border-color:var(--border2)}
-.empty{padding:80px 32px;text-align:center}
-.empty-emoji{font-size:40px;margin-bottom:16px}
-.empty h3{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:8px}
-.empty p{font-size:13px;color:var(--text-muted)}
-.login-err{color:#dc2626;font-size:12px;font-weight:500;margin-bottom:14px;display:none;background:#fef2f2;padding:8px 14px;border-radius:8px;border:1px solid #fecaca}
-.file-upload-btn{display:inline-flex;align-items:center;gap:8px;background:var(--primary-pale);color:var(--primary);border:1.5px solid var(--border2);padding:10px 16px;font-size:12px;font-weight:600;cursor:pointer;border-radius:10px;transition:all .2s;letter-spacing:.02em}
-.file-upload-btn:hover{background:var(--accent-pale);border-color:var(--primary)}
+.btn-edit{background:var(--white5);color:var(--white2);border:1px solid var(--border);padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s}
+.btn-edit:hover{color:var(--white);border-color:var(--border2)}
+.login-box{padding:44px 26px;text-align:center}
+.lock-emoji{font-size:40px;margin-bottom:16px}
+.login-box h3{font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:8px;color:var(--white)}
+.login-box p{font-size:13px;color:var(--white3);margin-bottom:28px;line-height:1.6}
+.login-err{color:#f87171;font-size:12px;font-weight:500;margin-bottom:14px;display:none;background:rgba(248,113,113,.1);padding:8px 14px;border-radius:8px;border:1px solid rgba(248,113,113,.3)}
+.file-upload-btn{display:inline-flex;align-items:center;gap:8px;background:var(--white5);color:var(--white2);border:1.5px solid var(--border2);padding:10px 16px;font-size:12px;font-weight:600;cursor:pointer;border-radius:10px;transition:all .2s}
+.file-upload-btn:hover{background:var(--glass2);border-color:var(--border2)}
 .img-preview{width:100%;height:120px;object-fit:cover;border-radius:10px;margin-top:8px;border:1px solid var(--border);display:none}
-
-/* Photo position slider */
-.photo-admin-wrap{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:16px;margin-top:12px}
-.photo-admin-preview{width:100%;height:180px;border-radius:10px;overflow:hidden;position:relative;background:var(--surface2);margin-bottom:12px}
+.photo-admin-wrap{background:var(--white5);border:1.5px solid var(--border);border-radius:14px;padding:16px;margin-top:12px}
+.photo-admin-preview{width:100%;height:180px;border-radius:10px;overflow:hidden;position:relative;background:var(--navy3);margin-bottom:12px}
 .photo-admin-preview img{width:100%;height:100%;object-fit:cover;display:block;transition:object-position .15s}
-.photo-admin-preview .no-photo{display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);font-size:12px;text-align:center;flex-direction:column;gap:8px;letter-spacing:.08em;text-transform:uppercase}
+.no-photo{display:flex;align-items:center;justify-content:center;height:100%;color:var(--white3);font-size:12px;text-align:center;flex-direction:column;gap:8px}
 .slider-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.slider-label{font-size:11px;color:var(--text-muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase;width:44px;flex-shrink:0}
-.pos-slider{flex:1;height:4px;accent-color:var(--primary);cursor:pointer}
-.admin-tabs{display:flex;gap:0;border-bottom:1.5px solid var(--border);margin-bottom:20px}
-.admin-tab{padding:10px 16px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);background:none;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border-bottom:2.5px solid transparent;margin-bottom:-1.5px;transition:all .2s}
-.admin-tab.active{color:var(--primary);border-bottom-color:var(--primary)}
-.admin-tab-content{display:none}
-.admin-tab-content.active{display:block}
-
-/* Social edit fields */
-.social-edit-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.social-edit-icon{width:36px;height:36px;border-radius:50%;background:var(--surface2);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
-.social-edit-input{flex:1;background:var(--bg);border:1.5px solid var(--border);color:var(--text-primary);padding:9px 12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;border-radius:10px;transition:border-color .2s;outline:none}
-.social-edit-input:focus{border-color:var(--primary)}
-
-/* Loading / status */
+.slider-label{font-size:11px;color:var(--white3);font-weight:600;letter-spacing:.08em;text-transform:uppercase;width:60px;flex-shrink:0}
+.pos-slider{flex:1;height:4px;accent-color:var(--blue2);cursor:pointer}
 .sync-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;letter-spacing:.06em}
-.sync-badge.loading{background:#FFF3E0;color:#8B4F00}
-.sync-badge.ok{background:#E0F5EC;color:#1A6B46}
-.sync-badge.err{background:#FFE9E8;color:#8B2020}
+.sync-badge.loading{background:rgba(245,158,11,.15);color:#FCD34D}
+.sync-badge.ok{background:rgba(16,185,129,.15);color:#6EE7B7}
+.sync-badge.err{background:rgba(248,113,113,.1);color:#f87171}
+.social-edit-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.social-edit-icon{width:36px;height:36px;border-radius:50%;background:var(--white5);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
+.social-edit-input{flex:1;background:var(--white5);border:1.5px solid var(--border);color:var(--white);padding:9px 12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;border-radius:10px;transition:border-color .2s;outline:none}
+.social-edit-input:focus{border-color:var(--blue2)}
+.social-edit-input::placeholder{color:var(--white3)}
+/* Mobile sidebar toggle */
+.sidebar-toggle{display:none;position:fixed;top:14px;right:16px;z-index:500;width:38px;height:38px;border-radius:10px;background:var(--navy2);border:1px solid var(--border2);color:var(--white);font-size:16px;align-items:center;justify-content:center;cursor:pointer}
 
-@media(max-width:900px){
-  .top-nav,.filter-nav{padding:0 20px}
-  .top-nav-right{padding-right:100px}
-  .hero-content{flex-direction:column;padding:48px 24px}
-  .hero-card{width:100%}
-  .catalog{padding:36px 20px}
-  .grid{grid-template-columns:1fr}
-  .modal-body{padding:20px 20px 48px}
-  .modal-header{padding:16px 20px 12px}
+/* ── TABLET: 768px — 8 columns, margin 32px, gutter 16px ── */
+@media(max-width:1100px){
+  .hero{padding:60px 32px 56px}
+  .page{padding:56px 32px}
+  .hero-card{width:300px}
+  .hero-photo-wrap,.hero-photo-placeholder{width:300px;height:300px}
 }
-@media(max-width:720px){
-  .top-nav-links{display:none}
-  .floating-admin-btn span.admin-label{display:none}
-  .floating-admin-btn{padding:9px 13px}
+
+/* ── MOBILE: 375px — 4 columns, margin 16px, gutter 10px ── */
+@media(max-width:900px){
+  .sidebar-toggle{display:flex}
+  .sidebar{height:auto;min-height:64px;padding:0 16px;flex-wrap:wrap}
+  .sidebar-logo{padding:12px 16px 12px 0;border-right:1px solid var(--border)}
+  .sidebar-nav{display:none;flex-direction:column;width:100%;padding:8px 0 12px;gap:2px;border-top:1px solid var(--border);margin-top:0}
+  .sidebar-nav.mobile-open{display:flex}
+  .sidebar.open .sidebar-nav{display:flex}
+  .sidebar.open{height:auto}
+  .sidebar-bottom{display:none}
+  .sidebar.open .sidebar-bottom{display:block;width:100%;padding:0 0 12px}
+  .admin-btn{width:100%}
+  .main{margin-top:64px}
+  .hero{padding:60px 16px 56px}
+  .hero-content{flex-direction:column-reverse;gap:32px;align-items:center}
+  .hero-card{width:220px}
+  .hero-photo-wrap,.hero-photo-placeholder{width:220px;height:220px}
+  .page{padding:56px 16px}
+  .sub-nav{position:static;border:none;background:transparent;box-shadow:none;padding:4px 0 4px 12px}
 }
 .fade-in{animation:fi .35s ease forwards}
 @keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.hero-pattern{position:absolute;inset:0;z-index:0;background-image:
-  radial-gradient(circle at 20% 80%, rgba(14,165,233,.3) 0%, transparent 50%),
-  radial-gradient(circle at 80% 20%, rgba(255,255,255,.08) 0%, transparent 50%),
-  radial-gradient(circle at 60% 60%, rgba(26,95,168,.4) 0%, transparent 60%);
-}
+
+/* ══ NAVBAR SOCIAL ICONS ══ */
+.navbar-social-icons{display:flex;align-items:center;gap:6px;margin-left:auto;margin-right:16px;flex-shrink:0;}
+.nav-social-btn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .25s cubic-bezier(.34,1.56,.64,1);border:1px solid var(--border);background:var(--white5);color:var(--white2);font-size:15px;flex-shrink:0;}
+.nav-social-btn:hover{transform:scale(1.18) translateY(-2px);border-color:transparent}
+.nav-social-btn.ig:hover{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 6px 20px rgba(225,48,108,.45)}
+.nav-social-btn.fb:hover{background:#1877F2;box-shadow:0 6px 20px rgba(24,119,242,.45)}
+.nav-social-btn.wa:hover{background:#25D366;box-shadow:0 6px 20px rgba(37,211,102,.45)}
+.nav-social-btn.em:hover{background:#EA4335;box-shadow:0 6px 20px rgba(234,67,53,.45)}
+.nav-social-btn.li:hover{background:#0A66C2;box-shadow:0 6px 20px rgba(10,102,194,.45)}
+.nav-social-btn.tt:hover{background:#010101;box-shadow:0 6px 20px rgba(255,255,255,.15);border-color:rgba(255,255,255,.3)}
+.nav-social-btn svg{width:16px;height:16px;fill:currentColor}
+
+/* ══ SCROLL POP-UP ANIMATIONS ══ */
+.anim-hidden{opacity:0;transform:translateY(40px) scale(0.96);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1);}
+.anim-hidden.anim-visible{opacity:1;transform:translateY(0) scale(1);}
+.anim-delay-1{transition-delay:.06s}.anim-delay-2{transition-delay:.13s}.anim-delay-3{transition-delay:.20s}
+.anim-delay-4{transition-delay:.27s}.anim-delay-5{transition-delay:.34s}.anim-delay-6{transition-delay:.41s}
+.hero-animate{opacity:0;transform:translateY(32px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1);}
+.hero-animate.hero-anim-in{opacity:1;transform:translateY(0)}
+.hero-photo-animate{opacity:0;transform:scale(0.88) translateY(20px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);}
+.hero-photo-animate.hero-anim-in{opacity:1;transform:scale(1) translateY(0)}
+/* about-me editable fields */
+.about-edit-section{background:var(--white5);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:24px}
+.about-edit-section h4{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--white3);margin-bottom:14px}
 </style>
 </head>
 <body>
 
-<h1 class="sr-only">Dwi Rahmi Paneo — Portfolio Farmasi</h1>
+<!-- MOBILE TOGGLE -->
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Menu">☰</button>
 
-<!-- FLOATING ADMIN BUTTON (pojok kanan atas, fixed) -->
-<button class="floating-admin-btn" onclick="openAdmin()" aria-label="Buka panel admin">
-  <span class="admin-icon">⚙</span>
-  <span class="admin-label">Admin</span>
-</button>
-
-<!-- TOP NAV -->
-<nav class="top-nav">
-  <a href="#" class="top-nav-logo">
-    <div class="logo-icon">⚕</div>
-    Dwi Rahmi Paneo
-  </a>
-  <div class="top-nav-links">
-    <a href="#" class="top-nav-link active">Beranda</a>
-    <a href="#catalog" class="top-nav-link">Katalog</a>
-    <a href="#" class="top-nav-link">Tentang</a>
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar" role="navigation" aria-label="Navigasi utama">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-text" id="sidebarName">Portfolio</div>
+    <div class="sidebar-logo-sub" id="sidebarSub">Portofolio Saya</div>
   </div>
-  <div class="top-nav-right" id="socialLinksNav">
-    <!-- Social links rendered by JS -->
+
+  <div class="sidebar-nav" id="sidebarNav">
+    <div class="nav-label">Menu</div>
+
+    <button class="nav-item active" data-page="about" onclick="navTo('about')">
+      <span class="nav-icon">👤</span>
+      <span class="nav-text">About Me</span>
+    </button>
+
+    <button class="nav-item" id="navExpBtn" data-page="experiences" onclick="navTo('experiences')">
+      <span class="nav-icon">💼</span>
+      <span class="nav-text">Experiences</span>
+    </button>
+
+    <button class="nav-item" data-page="sertifikat" onclick="navTo('sertifikat')">
+      <span class="nav-icon">🏆</span>
+      <span class="nav-text">Sertifikat</span>
+    </button>
+
+  </div>
+
+  <!-- Social Icons in Navbar -->
+  <div class="navbar-social-icons" id="navbarSocialIcons"></div>
+
+  <div class="sidebar-bottom">
+    <button class="admin-btn" onclick="openAdmin()">
+      <span style="font-size:14px">⚙</span>
+      <span>Panel Admin</span>
+    </button>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-pattern"></div>
-  <div class="hero-bg-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-text">
-      <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Sarjana Farmasi · Universitas Tadulako</div>
-      <h2 class="hero-name">Dwi Rahmi<br><em>Paneo</em></h2>
-      <p class="hero-degree">S.Farm · IPK 3,71 Cumlaude</p>
-      <p class="hero-desc">Sarjana Farmasi Bahan Alam dengan rekam jejak riset, akademik, magang, dan organisasi. Berpengalaman dalam penelitian network pharmacology, molecular docking, dan pengembangan inovasi digital di bidang kesehatan.</p>
-      <div class="hero-actions">
-        <a href="#catalog" class="btn-hero-primary">📂 Lihat Katalog</a>
+<!-- MAIN -->
+<div class="main">
+
+  <!-- PAGE: ABOUT ME (Hero) -->
+  <section class="page active" id="page-about">
+    <div class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-particles" id="particles"></div>
+      <div class="hero-content">
+        <div class="hero-left">
+          <div class="hero-eyebrow hero-animate" style="transition-delay:.1s"><span class="hero-eyebrow-dot"></span><span id="heroEyebrow">Portofolio Saya</span></div>
+          <p class="hero-greeting hero-animate" style="transition-delay:.18s" id="heroGreeting">Hello, Saya</p>
+          <h1 class="hero-name hero-animate" style="transition-delay:.26s" id="heroName">Nama <em>Kamu</em></h1>
+          <p class="hero-title hero-animate" style="transition-delay:.34s" id="heroTitle">Judul / Gelar · Instansi</p>
+          <p class="hero-desc hero-animate" style="transition-delay:.42s" id="heroDesc">Deskripsi singkat tentang diri kamu, pencapaian, dan apa yang kamu tawarkan.</p>
+          <div class="hero-actions hero-animate" style="transition-delay:.52s">
+            <button class="btn-primary" onclick="navTo('sertifikat')">🏆 Sertifikat</button>
+            <button class="btn-ghost-hero" onclick="navTo('sosmed')">🌐 Kontak Saya</button>
+          </div>
+        </div>
+        <div class="hero-card hero-photo-animate" style="transition-delay:.35s">
+          <div class="hero-card-label">📸 Foto Profil</div>
+          <div id="heroPhotoDisplayWrap">
+            <div class="hero-photo-placeholder" id="heroPhotoPlaceholder">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span style="font-size:11px;color:var(--white3)">Foto diatur dari Admin</span>
+            </div>
+            <div class="hero-photo-wrap" id="heroPhotoDisplayBox" style="display:none">
+              <img id="heroPhotoDisplay" src="" alt="Foto Profil" class="hero-photo">
+            </div>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat"><div class="hero-stat-num" id="statTotal">0</div><div class="hero-stat-label">Total</div></div>
+            <div class="hero-stat"><div class="hero-stat-num" id="statExp">0</div><div class="hero-stat-label">Pengalaman</div></div>
+            <div class="hero-stat"><div class="hero-stat-num" id="statCert">0</div><div class="hero-stat-label">Sertifikat</div></div>
+          </div>
+        </div>
       </div>
     </div>
-    <!-- Right card: profile photo -->
-    <div class="hero-card">
-      <div class="hero-card-label">📸 Foto Profil</div>
-      <div id="heroPhotoDisplayWrap">
-        <div class="hero-card-photo-placeholder" id="heroPhotoPlaceholder">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-          <span style="font-size:12px;color:rgba(255,255,255,.6)">Foto diatur dari Admin</span>
-        </div>
-        <div class="hero-photo-display-wrap" id="heroPhotoDisplayBox" style="display:none">
-          <img id="heroPhotoDisplay" src="" alt="Foto Profil" class="hero-photo-display">
-        </div>
-      </div>
-      <div class="hero-stats-row">
-        <div class="hero-stat"><div class="hero-stat-num" id="statTotal">0</div><div class="hero-stat-label">Projek</div></div>
-        <div class="hero-stat"><div class="hero-stat-num" id="statResearch">0</div><div class="hero-stat-label">Riset</div></div>
-        <div class="hero-stat"><div class="hero-stat-num" id="statAcademic">0</div><div class="hero-stat-label">Akademik</div></div>
-        <div class="hero-stat"><div class="hero-stat-num" id="statOther">0</div><div class="hero-stat-label">Lainnya</div></div>
-      </div>
+  </section>
+
+  <!-- PAGE: EXPERIENCES -->
+  <section class="page" id="page-experiences" style="padding-top:72px">
+    <div class="page-header">
+      <div class="page-eyebrow anim-hidden">Pengalaman</div>
+      <h2 class="page-title anim-hidden anim-delay-1">Rekam Jejak <em>Saya</em></h2>
+      <p class="page-desc anim-hidden anim-delay-2">Perjalanan organisasi, karir, magang, pengabdian, dan akademik yang telah dilalui.</p>
     </div>
-  </div>
-</section>
+    <div class="exp-tabs" id="expTabs">
+      <button class="exp-tab active" data-sub="all" onclick="filterExp('all',this)">Semua</button>
+      <button class="exp-tab" data-sub="organisasi" onclick="filterExp('organisasi',this)"><span class="exp-tab-dot"></span>Organisasi</button>
+      <button class="exp-tab" data-sub="kerja" onclick="filterExp('kerja',this)"><span class="exp-tab-dot"></span>Kerja</button>
+      <button class="exp-tab" data-sub="magang" onclick="filterExp('magang',this)"><span class="exp-tab-dot"></span>Magang</button>
+      <button class="exp-tab" data-sub="pengabdian" onclick="filterExp('pengabdian',this)"><span class="exp-tab-dot"></span>Pengabdian</button>
+      <button class="exp-tab" data-sub="akademik" onclick="filterExp('akademik',this)"><span class="exp-tab-dot"></span>Akademik</button>
+    </div>
+    <div class="grid" id="expGrid" role="list"></div>
+  </section>
 
-<!-- FILTER NAV -->
-<nav id="catalog" class="filter-nav" aria-label="Filter kategori">
-  <button class="filter-btn active" data-cat="all" onclick="filterCat('all',this)">Semua</button>
-  <button class="filter-btn" data-cat="research" onclick="filterCat('research',this)"><span class="filter-dot" style="background:var(--research-dot)"></span>Research</button>
-  <button class="filter-btn" data-cat="academic" onclick="filterCat('academic',this)"><span class="filter-dot" style="background:var(--academic-dot)"></span>Academic</button>
-  <button class="filter-btn" data-cat="internship" onclick="filterCat('internship',this)"><span class="filter-dot" style="background:var(--internship-dot)"></span>Internship</button>
-  <button class="filter-btn" data-cat="work" onclick="filterCat('work',this)"><span class="filter-dot" style="background:var(--work-dot)"></span>Work</button>
-  <button class="filter-btn" data-cat="organization" onclick="filterCat('organization',this)"><span class="filter-dot" style="background:var(--org-dot)"></span>Organization</button>
-</nav>
+  <!-- PAGE: SERTIFIKAT -->
+  <section class="page" id="page-sertifikat" style="padding-top:72px">
+    <div class="page-header">
+      <div class="page-eyebrow anim-hidden">Pencapaian</div>
+      <h2 class="page-title anim-hidden anim-delay-1">Sertifikat & <em>Penghargaan</em></h2>
+      <p class="page-desc anim-hidden anim-delay-2">Kumpulan sertifikat pelatihan, penghargaan, dan bukti kompetensi yang telah diperoleh.</p>
+    </div>
+    <div class="cert-grid" id="certGrid"></div>
+  </section>
 
-<!-- CATALOG -->
-<main class="catalog">
-  <div class="section-header">
-    <span class="section-title" id="sectionTitle">Semua Pengalaman</span>
-    <span class="item-count" id="itemCount">0 entri</span>
-  </div>
-  <div class="grid" id="grid" role="list" aria-label="Daftar pengalaman"></div>
-</main>
+  <!-- PAGE: MEDIA SOSIAL -->
+  <section class="page" id="page-sosmed" style="padding-top:72px">
+    <div class="page-header">
+      <div class="page-eyebrow anim-hidden">Kontak</div>
+      <h2 class="page-title anim-hidden anim-delay-1">Media <em>Sosial</em></h2>
+      <p class="page-desc anim-hidden anim-delay-2">Temukan dan hubungi saya melalui platform media sosial berikut.</p>
+    </div>
+    <div class="social-grid" id="socialGrid"></div>
+  </section>
+
+</div><!-- /main -->
 
 <!-- DETAIL MODAL -->
 <div class="overlay" id="overlay" onclick="closeDetail()"></div>
-<aside class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<aside class="modal" id="modal" role="dialog" aria-modal="true">
   <div class="modal-header">
     <div class="modal-header-top">
       <div class="modal-cat-badge" id="modalCatBadge"></div>
@@ -394,10 +548,10 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Plus Jakarta Sa
 
 <!-- LIGHTBOX -->
 <div class="lightbox-overlay" id="lightboxOverlay">
-  <button class="lightbox-close" onclick="document.getElementById('lightboxOverlay').classList.remove('show');document.body.style.overflow=''" aria-label="Tutup">✕</button>
-  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)" aria-label="Sebelumnya">‹</button>
-  <img class="lightbox-img" id="lightboxImg" src="" alt="Dokumentasi" onclick="event.stopPropagation()">
-  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)" aria-label="Berikutnya">›</button>
+  <button class="lightbox-close" onclick="closeLightboxFn()" aria-label="Tutup">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">‹</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="Dokumentasi">
+  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">›</button>
 </div>
 
 <!-- ADMIN PANEL -->
@@ -408,9 +562,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Plus Jakarta Sa
 </div>
 
 <script type="module">
-// ══════════════════════════════════════════════════════
-//  FIREBASE CONFIG — ganti dengan konfigurasi project kamu
-// ══════════════════════════════════════════════════════
+// ══ FIREBASE ══
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 import { getFirestore, doc, getDoc, setDoc, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
@@ -423,727 +575,867 @@ const firebaseConfig = {
   appId: "1:859610293542:web:fc1a9cd160c32355b70de7",
   measurementId: "G-0ML836NSEZ"
 };
-
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
-// ══════════════════════════════════════════════════════
-//  CONFIG
-// ══════════════════════════════════════════════════════
+// ══ CONFIG ══
 const ADMIN_PASS = 'rahmi2025';
-let authed = false, currentCat = 'all', editingId = null;
-let _formImgData = null;
-let _formDocGallery = []; // array base64 foto dokumentasi (maks 10)
-let _profileImgData = null;
-let _currentAdminTab = 'entries';
+let authed = false, currentExpSub = 'all', editingId = null;
+let _formImgData = null, _formDocGallery = [], _profileImgData = null;
+let _currentAdminTab = 'about';
 
-const catLabels = {research:'Research',academic:'Academic',internship:'Internship',work:'Work',organization:'Organization'};
-const catBg = {research:'var(--research-bg)',academic:'var(--academic-bg)',internship:'var(--internship-bg)',work:'var(--work-bg)',organization:'var(--org-bg)'};
-const catTextCol = {research:'var(--research-text)',academic:'var(--academic-text)',internship:'var(--internship-text)',work:'var(--work-text)',organization:'var(--org-text)'};
-const catDot = {research:'var(--research-dot)',academic:'var(--academic-dot)',internship:'var(--internship-dot)',work:'var(--work-dot)',organization:'var(--org-dot)'};
+// ══ DATA ══
+let _entries = [], _certs = [], _social = {}, _profile = null, _about = {};
 
-// ══════════════════════════════════════════════════════
-//  FIREBASE HELPERS — Firestore only (tanpa Storage)
-// ══════════════════════════════════════════════════════
-// Koleksi Firestore: "rahmi" dengan dokumen per kunci
-//   doc "entries"      → { value: "[...]" }  ← JSON array entri
-//   doc "img-{id}"     → { value: "data:image/..." } ← base64 gambar entri
-//   doc "profile"      → { value: "{...}" }  ← JSON profil + base64 foto
-//   doc "social"       → { value: "{...}" }  ← JSON social links
-
-async function dbGet(key) {
-  try {
-    const snap = await getDoc(doc(db, 'rahmi', key));
-    return snap.exists() ? snap.data().value : null;
-  } catch(e) { console.warn('dbGet error', e); return null; }
-}
-async function dbSet(key, value) {
-  try {
-    await setDoc(doc(db, 'rahmi', key), { value });
-    return true;
-  } catch(e) { console.warn('dbSet error', e); return false; }
-}
-async function dbDel(key) {
-  try { await deleteDoc(doc(db, 'rahmi', key)); } catch {}
-}
-
-// --- Entries ---
-async function loadEntries() {
-  const raw = await dbGet('entries');
-  try { return raw ? JSON.parse(raw) : null; } catch { return null; }
-}
-async function saveEntries(arr) {
-  await dbSet('entries', JSON.stringify(arr));
-}
-
-// --- Gambar per entri (base64 langsung di Firestore) ---
-async function loadEntryImg(id) {
-  return await dbGet('img-' + id);
-}
-async function saveEntryImg(id, b64) {
-  await dbSet('img-' + id, b64);
-}
-async function deleteEntryImg(id) {
-  await dbDel('img-' + id);
-}
-
-// --- Galeri dokumentasi per entri (maks 10 foto) ---
-async function loadDocGallery(id) {
-  const raw = await dbGet('gallery-' + id);
-  try { return raw ? JSON.parse(raw) : []; } catch { return []; }
-}
-async function saveDocGallery(id, arr) {
-  await dbSet('gallery-' + id, JSON.stringify(arr));
-}
-async function deleteDocGallery(id) {
-  await dbDel('gallery-' + id);
-}
-
-// --- Foto profil (base64 langsung di Firestore) ---
-async function loadProfile() {
-  const raw = await dbGet('profile');
-  try { return raw ? JSON.parse(raw) : null; } catch { return null; }
-}
-async function saveProfile(obj) {
-  await dbSet('profile', JSON.stringify(obj));
-}
-
-// --- Social links ---
-async function loadSocial() {
-  const raw = await dbGet('social');
-  try { return raw ? JSON.parse(raw) : null; } catch { return null; }
-}
-async function saveSocial(obj) {
-  await dbSet('social', JSON.stringify(obj));
-}
-
-// ══════════════════════════════════════════════════════
-//  DEFAULT DATA
-// ══════════════════════════════════════════════════════
-const defaultEntries = [
-  {id:'1',cat:'research',title:'Network Pharmacology & Molecular Docking — Antidiabetik',year:'2024',desc:'Studi network pharmacology tanaman etnofarmakologis dari Sulawesi sebagai kandidat antidiabetes. Dipublikasikan di Tropical Journal of Natural Product Research (Q3 Scopus).',roles:['Membaca dan menginterpretasi spektrum GC-MS','Pencarian basis data protein via GeneCards, SwissTargetPrediction, DrugBank, OMIM, DisGeNET','Membuat visualisasi grafik batang untuk publikasi','Berkontribusi dalam penulisan bagian pembahasan'],tags:['GC-MS','Network Pharmacology','Molecular Docking','Scopus Q3'],doi:'10.26538/tjnpr/v9i3.30',link:''},
-  {id:'2',cat:'research',title:'Network Pharmacology — Alstonia spectabilis Antimalaria',year:'2024',desc:'Analisis network pharmacology metabolit sekunder dari Alstonia spectabilis untuk prediksi aktivitas antimalaria. Dipublikasikan di Egyptian Journal of Chemistry (Q3 Scopus).',roles:['Pencarian basis data protein target malaria','Visualisasi jaringan PPI menggunakan Cytoscape','Berkontribusi dalam proses molecular docking senyawa aktif'],tags:['Cytoscape','PPI Network','Molecular Docking','Scopus Q3'],doi:'10.21608/ejchem.2024.301691.9952',link:''},
-  {id:'3',cat:'academic',title:'Asisten Laboratorium — 6 Mata Kuliah',year:'2023–2024',desc:'Menjadi asisten laboratorium untuk 6 mata kuliah di Jurusan Farmasi FMIPA Universitas Tadulako, 3 di antaranya sebagai Koordinator Asisten.',roles:['Koordinator Asisten: Farmakognosi, Fitokimia, Farmasi Fisika (2023–2024)','Anggota Tim Asisten: Analisis Farmasi, Farmakognosi, Kimia Analisis Farmasi (2024)'],tags:['Teaching','Lab','Farmakognosi','Fitokimia'],doi:'',link:''},
-  {id:'4',cat:'academic',title:'PKM 2023 — Molecular Docking Begonia sidolensis Antidiabetes',year:'2023',desc:'Lolos pendanaan PKM-RE Kemendikbudristek 2023. Studi Molekuler Docking Senyawa Flavonoid Begonia sidolensis pada Reseptor α-Glukosidase sebagai Antidiabetes.',roles:['Analisis in silico molecular docking senyawa flavonoid','Penelusuran literatur senyawa flavonoid bahan alam'],tags:['PKM','Molecular Docking','Kemendikbud','Antidiabetes'],doi:'',link:''},
-  {id:'5',cat:'academic',title:'PKM 2024 — Begonia sidolensis Terapi Kanker Payudara',year:'2024',desc:'Lolos pendanaan PKM-RE Kemendikbudristek 2024 sebagai Ketua Tim. Studi Network Pharmacology, Bioassay, dan Genomic Expression.',roles:['Ketua Tim — mengelola tim multidisiplin','Perencanaan riset, pelaksanaan eksperimen, pelaporan ilmiah'],tags:['PKM Ketua','Kemendikbud','Kanker Payudara','Network Pharmacology'],doi:'',link:''},
-  {id:'6',cat:'internship',title:'Apoteker Magang — Lapas Kelas IIB Pohuwato',year:'2026',desc:'Program magang Kemnaker RI Batch II. Apoteker di Klinik Pratama Lapas Kelas IIB Pohuwato. Predikat SANGAT BAIK. Inovasi: website KLIK-ME.',roles:['Menjalankan tugas pokok apoteker di Klinik Pratama Lapas Pohuwato','Merancang & mengembangkan website KLIK-ME secara mandiri'],tags:['Kemnaker RI','Apoteker','KLIK-ME','Magang'],doi:'',link:''},
-  {id:'7',cat:'work',title:'Admin & Konten Kreator — SASH.ID Gorontalo',year:'2025',desc:'Full time job sebagai Admin dan Konten Kreator di SASH.ID Gorontalo. Mengelola operasional, konten promosi, dan kualitas layanan.',roles:['Mengatur dan mengoordinasikan alur pemesanan customer','Membuat konten promosi dan mengelola akun media sosial'],tags:['Admin','Konten Kreator','Media Sosial'],doi:'',link:''},
-  {id:'8',cat:'organization',title:'Koordinator Acara — SNKPA 2023',year:'2023',desc:'Koordinator Acara Seminar Nasional Kefarmasian dan Pertemuan Apoteker (SNKPA) 2023.',roles:['Memimpin perencanaan teknis dan operasional acara tingkat nasional','Mengoordinasikan tim panitia lintas divisi'],tags:['Event Organizer','SNKPA','Nasional'],doi:'',link:''},
-  {id:'9',cat:'organization',title:'Sekretaris — PMJ Farmasi 2023',year:'2023',desc:'Sekretaris di Perhimpunan Mahasiswa Jurusan (PMJ) Farmasi FMIPA Universitas Tadulako periode 2023.',roles:['Mengelola administrasi organisasi: notulensi rapat, surat-menyurat, pengarsipan dokumen'],tags:['Sekretaris','Organisasi','PMJ Farmasi'],doi:'',link:''}
-];
-
-const defaultSocial = {
-  ig: 'https://www.instagram.com/',
-  fb: 'https://www.facebook.com/',
-  wa: 'https://wa.me/62',
-  email: '',
-  linkedin: ''
+const catLabels = {organisasi:'Organisasi',kerja:'Kerja',magang:'Magang',pengabdian:'Pengabdian',akademik:'Akademik'};
+const catColor = {
+  organisasi:{bg:'rgba(139,92,246,.2)',text:'#C4B5FD',dot:'#8B5CF6'},
+  kerja:{bg:'rgba(245,158,11,.15)',text:'#FCD34D',dot:'#F59E0B'},
+  magang:{bg:'rgba(16,185,129,.15)',text:'#6EE7B7',dot:'#10B981'},
+  pengabdian:{bg:'rgba(236,72,153,.15)',text:'#F9A8D4',dot:'#EC4899'},
+  akademik:{bg:'rgba(59,130,246,.18)',text:'#93C5FD',dot:'#3B82F6'}
 };
 
-// ══════════════════════════════════════════════════════
-//  INIT
-// ══════════════════════════════════════════════════════
-let _entries = [];
-let _social = {...defaultSocial};
-let _profile = null;
+// ══ FIREBASE HELPERS ══
+async function dbGet(key){try{const s=await getDoc(doc(db,'rahmi',key));return s.exists()?s.data().value:null}catch(e){return null}}
+async function dbSet(key,val){try{await setDoc(doc(db,'rahmi',key),{value:val});return true}catch(e){return false}}
+async function dbDel(key){try{await deleteDoc(doc(db,'rahmi',key))}catch{}}
 
-async function init() {
-  // Show loading indicator
-  document.getElementById('grid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)">⏳ Memuat data...</div>`;
+async function loadEntries(){const r=await dbGet('entries');try{return r?JSON.parse(r):null}catch{return null}}
+async function saveEntries(a){await dbSet('entries',JSON.stringify(a))}
+async function loadCerts(){const r=await dbGet('certs');try{return r?JSON.parse(r):null}catch{return null}}
+async function saveCerts(a){await dbSet('certs',JSON.stringify(a))}
+async function loadEntryImg(id){return await dbGet('img-'+id)}
+async function saveEntryImg(id,b64){await dbSet('img-'+id,b64)}
+async function deleteEntryImg(id){await dbDel('img-'+id)}
+async function loadDocGallery(id){const r=await dbGet('gallery-'+id);try{return r?JSON.parse(r):[]}catch{return[]}}
+async function saveDocGallery(id,a){await dbSet('gallery-'+id,JSON.stringify(a))}
+async function deleteDocGallery(id){await dbDel('gallery-'+id)}
+async function loadProfile(){const r=await dbGet('profile');try{return r?JSON.parse(r):null}catch{return null}}
+async function saveProfile(o){await dbSet('profile',JSON.stringify(o))}
+async function loadSocial(){const r=await dbGet('social');try{return r?JSON.parse(r):null}catch{return null}}
+async function saveSocial(o){await dbSet('social',JSON.stringify(o))}
+async function loadAbout(){const r=await dbGet('about');try{return r?JSON.parse(r):null}catch{return null}}
+async function saveAbout(o){await dbSet('about',JSON.stringify(o))}
+async function loadCertImg(id){return await dbGet('cert-img-'+id)}
+async function saveCertImg(id,b64){await dbSet('cert-img-'+id,b64)}
+async function deleteCertImg(id){await dbDel('cert-img-'+id)}
 
-  // Load entries
-  const stored = await loadEntries();
-  if (stored && stored.length > 0) {
-    _entries = stored;
-  } else {
-    _entries = defaultEntries.map(e => ({...e}));
-    await saveEntries(_entries);
-  }
+// ══ DEFAULTS ══
+const defaultAbout = {
+  eyebrow:'Sarjana Farmasi · Universitas Tadulako',
+  greeting:'Hello, Saya',
+  name:'Dwi Rahmi',
+  nameEm:'Paneo',
+  title:'S.Farm · IPK 3,71 Cumlaude',
+  desc:'Sarjana Farmasi Bahan Alam dengan rekam jejak riset, akademik, magang, dan organisasi. Berpengalaman dalam penelitian network pharmacology, molecular docking, dan pengembangan inovasi digital di bidang kesehatan.',
+  sidebarName:'Dwi Rahmi Paneo',
+  sidebarSub:'Sarjana Farmasi'
+};
+const defaultEntries = [
+  {id:'1',cat:'akademik',title:'Asisten Laboratorium — 6 Mata Kuliah',year:'2023–2024',desc:'Menjadi asisten laboratorium untuk 6 mata kuliah di Jurusan Farmasi FMIPA Universitas Tadulako.',roles:['Koordinator Asisten: Farmakognosi, Fitokimia, Farmasi Fisika'],tags:['Teaching','Lab','Farmakognosi'],link:''},
+  {id:'2',cat:'magang',title:'Apoteker Magang — Lapas Kelas IIB Pohuwato',year:'2026',desc:'Program magang Kemnaker RI Batch II. Apoteker di Klinik Pratama Lapas Pohuwato. Predikat SANGAT BAIK.',roles:['Menjalankan tugas pokok apoteker','Merancang website KLIK-ME'],tags:['Kemnaker RI','Apoteker','KLIK-ME'],link:''},
+  {id:'3',cat:'kerja',title:'Admin & Konten Kreator — SASH.ID Gorontalo',year:'2025',desc:'Full time job sebagai Admin dan Konten Kreator di SASH.ID Gorontalo.',roles:['Mengatur alur pemesanan customer','Membuat konten promosi dan mengelola media sosial'],tags:['Admin','Konten Kreator'],link:''},
+  {id:'4',cat:'organisasi',title:'Koordinator Acara — SNKPA 2023',year:'2023',desc:'Koordinator Acara Seminar Nasional Kefarmasian dan Pertemuan Apoteker (SNKPA) 2023.',roles:['Memimpin perencanaan teknis acara tingkat nasional'],tags:['Event Organizer','SNKPA'],link:''},
+  {id:'5',cat:'akademik',title:'PKM 2024 — Begonia sidolensis Kanker Payudara',year:'2024',desc:'Lolos pendanaan PKM-RE Kemendikbudristek 2024 sebagai Ketua Tim.',roles:['Ketua Tim — mengelola tim multidisiplin'],tags:['PKM','Kemendikbud','Kanker Payudara'],link:''},
+];
+const defaultCerts = [
+  {id:'c1',title:'Sertifikat Asisten Laboratorium',issuer:'Universitas Tadulako',year:'2023',field:'Farmasi'},
+  {id:'c2',title:'Sertifikat Magang Kemnaker RI',issuer:'Kementerian Ketenagakerjaan RI',year:'2026',field:'Profesi'},
+];
+const defaultSocial = {ig:'',fb:'',wa:'',email:'',linkedin:'',tiktok:''};
 
-  // Load social
-  const storedSocial = await loadSocial();
-  if (storedSocial) _social = storedSocial;
-  renderSocialLinks();
+// ══ INIT ══
+async function init(){
+  document.getElementById('expGrid').innerHTML = `<div style="grid-column:1/-1;padding:60px;text-align:center;color:rgba(255,255,255,.4)">⏳ Memuat...</div>`;
 
-  // Load profile photo
-  _profile = await loadProfile();
+  const [storedAbout, storedEntries, storedCerts, storedSocial, storedProfile] = await Promise.all([
+    loadAbout(), loadEntries(), loadCerts(), loadSocial(), loadProfile()
+  ]);
+
+  _about = storedAbout || {...defaultAbout};
+  _entries = (storedEntries && storedEntries.length) ? storedEntries : defaultEntries.map(e=>({...e}));
+  _certs = (storedCerts && storedCerts.length) ? storedCerts : defaultCerts.map(c=>({...c}));
+  _social = storedSocial || {...defaultSocial};
+  _profile = storedProfile;
+
+  applyAbout();
   applyProfilePhoto();
-
-  renderGrid();
+  renderExpGrid('all');
+  renderCertGrid();
+  renderSocialGrid();
   updateStats();
+  generateParticles();
 }
 
-// ══════════════════════════════════════════════════════
-//  SOCIAL LINKS
-// ══════════════════════════════════════════════════════
-function renderSocialLinks() {
-  const nav = document.getElementById('socialLinksNav');
-  nav.innerHTML = `
-    ${_social.ig ? `<a href="${_social.ig}" target="_blank" rel="noopener" class="social-link ig" title="Instagram" aria-label="Instagram">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-    </a>` : ''}
-    ${_social.fb ? `<a href="${_social.fb}" target="_blank" rel="noopener" class="social-link fb" title="Facebook" aria-label="Facebook">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-    </a>` : ''}
-    ${_social.wa ? `<a href="${_social.wa}" target="_blank" rel="noopener" class="social-link wa" title="WhatsApp" aria-label="WhatsApp">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-    </a>` : ''}
-    ${_social.email ? `<a href="https://mail.google.com/mail/?view=cm&to=${_social.email.replace(/^mailto:/,'')}" target="_blank" rel="noopener" class="social-link em" title="Email" aria-label="Email">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-    </a>` : ''}
-    ${_social.linkedin ? `<a href="${_social.linkedin}" target="_blank" rel="noopener" class="social-link li" title="LinkedIn" aria-label="LinkedIn">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-    </a>` : ''}`;
+function applyAbout(){
+  const a = _about;
+  document.getElementById('heroEyebrow').textContent = a.eyebrow || defaultAbout.eyebrow;
+  document.getElementById('heroGreeting').textContent = a.greeting || defaultAbout.greeting;
+  const nameEl = document.getElementById('heroName');
+  nameEl.innerHTML = `${a.name || 'Nama'} <em>${a.nameEm || 'Kamu'}</em>`;
+  document.getElementById('heroTitle').textContent = a.title || defaultAbout.title;
+  document.getElementById('heroDesc').textContent = a.desc || defaultAbout.desc;
+  document.getElementById('sidebarName').textContent = a.sidebarName || defaultAbout.sidebarName;
+  document.getElementById('sidebarSub').textContent = a.sidebarSub || defaultAbout.sidebarSub;
 }
 
-// ══════════════════════════════════════════════════════
-//  PROFILE PHOTO
-// ══════════════════════════════════════════════════════
-function applyProfilePhoto() {
-  const placeholder = document.getElementById('heroPhotoPlaceholder');
+function applyProfilePhoto(){
+  const ph = document.getElementById('heroPhotoPlaceholder');
   const box = document.getElementById('heroPhotoDisplayBox');
   const img = document.getElementById('heroPhotoDisplay');
-  if (_profile && _profile.src) {
+  if(_profile && _profile.src){
     img.src = _profile.src;
-    const px = _profile.posX || 50;
-    const py = _profile.posY || 30;
-    img.style.objectPosition = `${px}% ${py}%`;
-    placeholder.style.display = 'none';
-    box.style.display = 'block';
+    img.style.objectPosition = `${_profile.posX||50}% ${_profile.posY||30}%`;
+    ph.style.display='none'; box.style.display='block';
   } else {
-    placeholder.style.display = 'flex';
-    box.style.display = 'none';
+    ph.style.display='flex'; box.style.display='none';
   }
 }
 
-// ══════════════════════════════════════════════════════
-//  RENDER GRID
-// ══════════════════════════════════════════════════════
-async function renderGrid(cat = 'all') {
-  const filtered = cat === 'all' ? _entries : _entries.filter(e => e.cat === cat);
-  const grid = document.getElementById('grid');
-  document.getElementById('itemCount').textContent = `${filtered.length} entri`;
-  document.getElementById('sectionTitle').textContent = cat === 'all' ? 'Semua Pengalaman' : (catLabels[cat] || cat);
-  if (!filtered.length) {
-    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="empty-emoji">📂</div><h3>Belum ada entri</h3><p>Tambahkan pengalaman baru melalui panel Admin (⚙)</p></div>`;
+function updateStats(){
+  document.getElementById('statTotal').textContent = _entries.length + _certs.length;
+  document.getElementById('statExp').textContent = _entries.length;
+  document.getElementById('statCert').textContent = _certs.length;
+}
+
+// ══ PARTICLES ══
+function generateParticles(){
+  const c = document.getElementById('particles');
+  for(let i=0;i<18;i++){
+    const d = document.createElement('div');
+    d.className='particle';
+    d.style.cssText=`left:${Math.random()*100}%;animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*10}s;width:${Math.random()>0.7?3:2}px;height:${Math.random()>0.7?3:2}px;opacity:${.2+Math.random()*.4}`;
+    c.appendChild(d);
+  }
+}
+
+// ══ NAVIGATION ══
+function navTo(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const btn = document.querySelector(`.nav-item[data-page="${page}"]`);
+  if(btn) btn.classList.add('active');
+  // close sidebar on mobile
+  if(window.innerWidth<=900) document.getElementById('sidebar').classList.remove('open');
+}
+
+function toggleExpMenu(){
+  const btn = document.getElementById('navExpBtn');
+  const sub = document.getElementById('expSubNav');
+  const isOpen = sub.classList.contains('open');
+  sub.classList.toggle('open');
+  btn.classList.toggle('exp-open');
+  if(!isOpen){
+    navTo('experiences');
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    btn.classList.add('active','exp-open');
+  }
+}
+
+function navToExp(sub){
+  navTo('experiences');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('navExpBtn').classList.add('active');
+  document.querySelectorAll('.sub-nav-item').forEach(s=>s.classList.remove('active'));
+  document.querySelector(`.sub-nav-item[data-sub="${sub}"]`).classList.add('active');
+  filterExpFromNav(sub);
+}
+
+function filterExpFromNav(sub){
+  currentExpSub = sub;
+  document.querySelectorAll('.exp-tab').forEach(t=>t.classList.remove('active'));
+  const t = document.querySelector(`.exp-tab[data-sub="${sub}"]`);
+  if(t) t.classList.add('active');
+  renderExpGrid(sub);
+}
+
+function filterExp(sub, btn){
+  currentExpSub = sub;
+  document.querySelectorAll('.exp-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.sub-nav-item').forEach(s=>s.classList.remove('active'));
+  const si = document.querySelector(`.sub-nav-item[data-sub="${sub}"]`);
+  if(si) si.classList.add('active');
+  renderExpGrid(sub);
+}
+
+// ══ RENDER EXPERIENCES ══
+async function renderExpGrid(sub='all'){
+  const filtered = sub==='all' ? _entries : _entries.filter(e=>e.cat===sub);
+  const grid = document.getElementById('expGrid');
+  if(!filtered.length){
+    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">📂</div><p>Belum ada entri di kategori ini.<br>Tambah melalui Panel Admin ⚙</p></div>`;
     return;
   }
-
-  // Load images for visible cards
-  const imgMap = {};
-  await Promise.all(filtered.map(async e => {
-    const img = await loadEntryImg(e.id);
-    if (img) imgMap[e.id] = img;
-  }));
-
-  grid.innerHTML = filtered.map((e, i) => {
-    const imgSrc = imgMap[e.id] || '';
-    const imgHtml = imgSrc
-      ? `<div class="card-img-wrap"><img src="${imgSrc}" alt="${e.title}" class="card-img" loading="lazy"></div>`
-      : `<div class="card-img-wrap"><div class="card-img-placeholder"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span>Foto belum ada</span></div></div>`;
-    return `
-    <article class="card cat-${e.cat} fade-in" onclick="openDetail('${e.id}')" style="animation-delay:${i * .04}s" role="listitem" tabindex="0" onkeydown="if(event.key==='Enter')openDetail('${e.id}')">
+  const imgMap={};
+  await Promise.all(filtered.map(async e=>{const img=await loadEntryImg(e.id);if(img)imgMap[e.id]=img;}));
+  grid.innerHTML=filtered.map((e,i)=>{
+    const imgSrc=imgMap[e.id]||'';
+    const cc=catColor[e.cat]||{bg:'rgba(255,255,255,.1)',text:'#fff',dot:'#fff'};
+    const imgHtml=imgSrc
+      ?`<div class="card-img-wrap"><img src="${imgSrc}" alt="${e.title}" class="card-img" loading="lazy"></div>`
+      :`<div class="card-img-wrap"><div class="card-img-placeholder"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div></div>`;
+    return `<article class="card cat-${e.cat} anim-hidden" onclick="openDetail('${e.id}')" style="transition-delay:${i*.06}s" role="listitem" tabindex="0">
       ${imgHtml}
       <div class="card-body">
         <div class="card-top">
-          <div class="card-badge"><span class="card-badge-dot"></span>${catLabels[e.cat] || e.cat}</div>
+          <div class="card-badge" style="background:${cc.bg};color:${cc.text}"><span class="card-badge-dot" style="background:${cc.dot}"></span>${catLabels[e.cat]||e.cat}</div>
           <span class="card-year">${e.year}</span>
         </div>
         <h3 class="card-title">${e.title}</h3>
         <p class="card-desc">${e.desc}</p>
-        <div class="card-tags">${(e.tags || []).slice(0, 3).map(t => `<span class="tag">${t}</span>`).join('')}</div>
-        <div class="card-footer"><span class="card-date-chip">${e.year}</span><span class="card-arrow">↗</span></div>
+        <div class="card-tags">${(e.tags||[]).slice(0,3).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        <div class="card-footer"><span style="font-size:11px;color:var(--white3)">${e.year}</span><span class="card-arrow">↗</span></div>
       </div>
     </article>`;
   }).join('');
+  setTimeout(()=>observeAnimations(),50);
 }
 
-// ══════════════════════════════════════════════════════
-//  STATS
-// ══════════════════════════════════════════════════════
-function updateStats() {
-  document.getElementById('statTotal').textContent = _entries.length;
-  document.getElementById('statResearch').textContent = _entries.filter(e => e.cat === 'research').length;
-  document.getElementById('statAcademic').textContent = _entries.filter(e => e.cat === 'academic').length;
-  document.getElementById('statOther').textContent = _entries.filter(e => ['internship', 'work', 'organization'].includes(e.cat)).length;
-}
-
-function filterCat(cat, btn) {
-  currentCat = cat;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderGrid(cat);
-}
-
-// ══════════════════════════════════════════════════════
-//  DETAIL MODAL
-// ══════════════════════════════════════════════════════
-async function openDetail(id) {
-  const e = _entries.find(x => x.id === id);
-  if (!e) return;
-  const badge = document.getElementById('modalCatBadge');
-  badge.style.background = catBg[e.cat] || '#eee';
-  badge.style.color = catTextCol[e.cat] || '#333';
-  badge.innerHTML = `<span style="width:6px;height:6px;border-radius:50%;background:${catDot[e.cat]||'#888'};display:inline-block;margin-right:6px"></span>${catLabels[e.cat] || e.cat}`;
-  document.getElementById('modalTitle').textContent = e.title;
-  document.getElementById('modalYear').textContent = e.year;
-  const imgSrc = await loadEntryImg(e.id);
-  let body = '';
-  if (imgSrc) body += `<img src="${imgSrc}" alt="${e.title}" class="modal-img">`;
-  else body += `<div class="modal-img-placeholder">📷 Foto / Dokumentasi</div>`;
-  body += `<div class="modal-section"><div class="modal-section-label">Deskripsi</div><p class="modal-text">${e.desc || '—'}</p></div>`;
-  if (e.roles && e.roles.length) body += `<div class="modal-section"><div class="modal-section-label">Peran & Kontribusi</div><ul class="modal-list">${e.roles.map(r => `<li>${r}</li>`).join('')}</ul></div>`;
-  if (e.tags && e.tags.length) body += `<div class="modal-section"><div class="modal-section-label">Tags</div><div class="modal-tags">${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div></div>`;
-  if (e.doi) body += `<div class="modal-section"><div class="modal-section-label">Publikasi</div><a href="https://doi.org/${e.doi}" target="_blank" class="modal-link">Lihat Publikasi ↗</a></div>`;
-  if (e.link) body += `<div class="modal-section"><div class="modal-section-label">Tautan</div><a href="${e.link}" target="_blank" class="modal-link">Buka Tautan ↗</a></div>`;
-
-  // Galeri dokumentasi
-  const gallery = await loadDocGallery(e.id);
-  if (gallery && gallery.length > 0) {
-    body += `<div class="modal-section"><div class="modal-section-label">Dokumentasi Kegiatan (${gallery.length} foto)</div>
-      <div class="doc-gallery">${gallery.map((src, i) =>
-        `<img src="${src}" alt="Dokumentasi ${i+1}" class="doc-gallery-img" loading="lazy" onclick="openLightbox(${JSON.stringify(e.id)},${i})">`
-      ).join('')}</div></div>`;
+// ══ RENDER CERTS ══
+async function renderCertGrid(){
+  const g = document.getElementById('certGrid');
+  if(!_certs.length){
+    g.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🏆</div><p>Belum ada sertifikat.<br>Tambah melalui Panel Admin ⚙</p></div>`;
+    return;
   }
+  const imgMap={};
+  await Promise.all(_certs.map(async c=>{const img=await loadCertImg(c.id);if(img)imgMap[c.id]=img;}));
+  g.innerHTML=_certs.map((c,i)=>{
+    const img=imgMap[c.id]||'';
+    return `<div class="cert-card anim-hidden" style="transition-delay:${i*.07}s">
+      <div style="display:flex;align-items:flex-start;gap:14px">
+        <div class="cert-icon">🏆</div>
+        <div class="cert-info">
+          <div class="cert-title">${c.title}</div>
+          <div class="cert-issuer">${c.issuer||'—'}</div>
+          <div class="cert-year">${c.year||''}</div>
+        </div>
+      </div>
+      ${img?`<div class="cert-img-wrap"><img src="${img}" alt="${c.title}" class="cert-img" loading="lazy"></div>`:'<div class="cert-img-placeholder">📜 Sertifikat</div>'}
+      ${c.field?`<span class="cert-badge">✓ ${c.field}</span>`:''}
+    </div>`;
+  }).join('');
+  setTimeout(()=>observeAnimations(),50);
+}
 
-  document.getElementById('modalBody').innerHTML = body;
+// ══ RENDER SOCIAL ══
+function renderSocialGrid(){
+  const g = document.getElementById('socialGrid');
+  const socMap = [
+    {key:'ig',cls:'ig',name:'Instagram',icon:'📸'},
+    {key:'fb',cls:'fb',name:'Facebook',icon:'👥'},
+    {key:'wa',cls:'wa',name:'WhatsApp',icon:'💬'},
+    {key:'email',cls:'em',name:'Email',icon:'✉️'},
+    {key:'linkedin',cls:'li',name:'LinkedIn',icon:'💼'},
+    {key:'tiktok',cls:'tt',name:'TikTok',icon:'🎵'},
+  ];
+  const active = socMap.filter(s=>_social[s.key]);
+  if(!active.length){
+    g.innerHTML=`<p class="social-empty-note">Belum ada media sosial. Tambahkan melalui Panel Admin ⚙</p>`;
+    renderNavbarSocial([]);
+    return;
+  }
+  g.innerHTML=active.map((s,i)=>{
+    const url = s.key==='email'
+      ? `https://mail.google.com/mail/?view=cm&to=${_social[s.key].replace(/^mailto:/,'')}`
+      : _social[s.key];
+    return `<a href="${url}" target="_blank" rel="noopener" class="social-card ${s.cls} anim-hidden anim-delay-${Math.min(i+1,6)}">
+      <div class="social-icon-wrap">${s.icon}</div>
+      <div class="social-name">${s.name}</div>
+      <div class="social-handle">${_social[s.key]}</div>
+    </a>`;
+  }).join('');
+  renderNavbarSocial(active);
+  setTimeout(()=>observeAnimations(),50);
+}
+
+// ══ NAVBAR SOCIAL ICONS ══
+const socialSVGs = {
+  ig: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`,
+  fb: `<svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`,
+  wa: `<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>`,
+  em: `<svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>`,
+  li: `<svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`,
+  tt: `<svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>`
+};
+
+function renderNavbarSocial(activeList){
+  const container = document.getElementById('navbarSocialIcons');
+  if(!container)return;
+  const socMap = [
+    {key:'ig',cls:'ig'},{key:'fb',cls:'fb'},{key:'wa',cls:'wa'},
+    {key:'email',cls:'em'},{key:'linkedin',cls:'li'},{key:'tiktok',cls:'tt'}
+  ];
+  const items = socMap.filter(s=>_social[s.key]);
+  if(!items.length){container.innerHTML='';return;}
+  container.innerHTML = items.map(s=>{
+    const url = s.key==='email'
+      ? `https://mail.google.com/mail/?view=cm&to=${_social[s.key].replace(/^mailto:/,'')}`
+      : _social[s.key];
+    const svgIcon = socialSVGs[s.cls]||'';
+    return `<a href="${url}" target="_blank" rel="noopener" class="nav-social-btn ${s.cls}" title="${s.key}">${svgIcon}</a>`;
+  }).join('');
+}
+
+// ══ DETAIL MODAL ══
+async function openDetail(id){
+  const e = _entries.find(x=>x.id===id);
+  if(!e)return;
+  const cc=catColor[e.cat]||{bg:'rgba(255,255,255,.1)',text:'#fff',dot:'#fff'};
+  const badge=document.getElementById('modalCatBadge');
+  badge.style.background=cc.bg; badge.style.color=cc.text;
+  badge.innerHTML=`<span style="width:6px;height:6px;border-radius:50%;background:${cc.dot};display:inline-block;margin-right:6px"></span>${catLabels[e.cat]||e.cat}`;
+  document.getElementById('modalTitle').textContent=e.title;
+  document.getElementById('modalYear').textContent=e.year;
+  const imgSrc=await loadEntryImg(e.id);
+  let body='';
+  if(imgSrc)body+=`<img src="${imgSrc}" alt="${e.title}" class="modal-img">`;
+  else body+=`<div class="modal-img-placeholder">📷 Foto / Dokumentasi</div>`;
+  body+=`<div class="modal-section"><div class="modal-section-label">Deskripsi</div><p class="modal-text">${e.desc||'—'}</p></div>`;
+  if(e.roles&&e.roles.length)body+=`<div class="modal-section"><div class="modal-section-label">Peran & Kontribusi</div><ul class="modal-list">${e.roles.map(r=>`<li>${r}</li>`).join('')}</ul></div>`;
+  if(e.tags&&e.tags.length)body+=`<div class="modal-section"><div class="modal-section-label">Tags</div><div class="modal-tags">${e.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div>`;
+  if(e.link)body+=`<div class="modal-section"><div class="modal-section-label">Tautan</div><a href="${e.link}" target="_blank" class="modal-link">Buka Tautan ↗</a></div>`;
+  const gallery=await loadDocGallery(e.id);
+  if(gallery&&gallery.length)body+=`<div class="modal-section"><div class="modal-section-label">Dokumentasi (${gallery.length} foto)</div><div class="doc-gallery">${gallery.map((src,i)=>`<img src="${src}" alt="Dok ${i+1}" class="doc-gallery-img" loading="lazy" onclick="openLightboxFn(${JSON.stringify(e.id)},${i})">`).join('')}</div></div>`;
+  document.getElementById('modalBody').innerHTML=body;
   document.getElementById('overlay').classList.add('show');
   document.getElementById('modal').classList.add('show');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-function closeDetail() {
+function closeDetail(){
   document.getElementById('overlay').classList.remove('show');
   document.getElementById('modal').classList.remove('show');
-  document.body.style.overflow = '';
+  document.body.style.overflow='';
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDetail(); closeAdminPanel(); } });
 
-// ══════════════════════════════════════════════════════
-//  ADMIN PANEL
-// ══════════════════════════════════════════════════════
-function openAdmin() { document.getElementById('adminOverlay').classList.add('show'); authed ? showAdminDashboard() : showLoginForm(); }
-function closeAdminPanel() { document.getElementById('adminOverlay').classList.remove('show'); editingId = null; }
-document.getElementById('adminOverlay').addEventListener('click', function(e) { if (e.target === this) closeAdminPanel(); });
+// ══ LIGHTBOX ══
+let _lbGallery=[],_lbIdx=0;
+async function openLightboxFn(id,idx){
+  _lbGallery=await loadDocGallery(id); _lbIdx=idx;
+  document.getElementById('lightboxImg').src=_lbGallery[idx];
+  document.getElementById('lightboxOverlay').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeLightboxFn(){
+  document.getElementById('lightboxOverlay').classList.remove('show');
+  document.body.style.overflow='';
+}
+function lightboxNav(d){
+  _lbIdx=(_lbIdx+d+_lbGallery.length)%_lbGallery.length;
+  document.getElementById('lightboxImg').src=_lbGallery[_lbIdx];
+}
+document.getElementById('lightboxOverlay').addEventListener('click',function(e){if(e.target===this)closeLightboxFn();});
 
-function showLoginForm() {
-  document.getElementById('adminContent').innerHTML = `
-    <div class="admin-panel-header"><h2>Panel Admin</h2><button class="btn-ghost" onclick="closeAdminPanel()" style="padding:8px 14px;font-size:12px">✕ Tutup</button></div>
+// ══ ADMIN ══
+function openAdmin(){document.getElementById('adminOverlay').classList.add('show');authed?showAdminDash():showLoginForm();}
+function closeAdminPanel(){document.getElementById('adminOverlay').classList.remove('show');editingId=null;}
+document.getElementById('adminOverlay').addEventListener('click',function(e){if(e.target===this)closeAdminPanel();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();closeAdminPanel();closeLightboxFn();}});
+
+function showLoginForm(){
+  document.getElementById('adminContent').innerHTML=`
+    <div class="admin-panel-header"><h2>Panel Admin</h2><button class="btn-admin-ghost" onclick="closeAdminPanel()" style="padding:8px 14px;font-size:12px">✕ Tutup</button></div>
     <div class="admin-panel-body">
       <div class="login-box">
         <div class="lock-emoji">🔐</div>
         <h3>Masuk sebagai Admin</h3>
-        <p>Hanya pemilik portofolio yang dapat menambah atau mengedit konten.</p>
+        <p>Hanya pemilik portofolio yang dapat mengedit konten.</p>
+        <div id="loginErr" class="login-err">Password salah. Coba lagi.</div>
         <div class="form-group" style="text-align:left">
-          <label class="form-label" for="passInput">Password</label>
-          <input type="password" id="passInput" class="form-input" placeholder="Masukkan password" onkeydown="if(event.key==='Enter')doLogin()">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" id="passInput" placeholder="Masukkan password" onkeydown="if(event.key==='Enter')doLogin()">
         </div>
-        <div id="loginErr" class="login-err">Password salah. Silakan coba lagi.</div>
-        <div class="btn-row" style="justify-content:center;border:none;padding:0;margin:0">
-          <button class="btn-primary" onclick="doLogin()" style="width:100%;justify-content:center">Masuk</button>
-        </div>
+        <button class="btn-admin-primary" style="width:100%" onclick="doLogin()">Masuk</button>
       </div>
     </div>`;
-  setTimeout(() => document.getElementById('passInput') && document.getElementById('passInput').focus(), 100);
-}
-function doLogin() {
-  if (document.getElementById('passInput').value === ADMIN_PASS) { authed = true; showAdminDashboard(); }
-  else document.getElementById('loginErr').style.display = 'block';
 }
 
-function showAdminDashboard(tab) {
-  if (tab) _currentAdminTab = tab;
-  const list = _entries.length ? `<div class="entry-list">${_entries.map(e => `
-    <div class="entry-item">
-      <div><div class="entry-item-title">${e.title}</div><div class="entry-item-meta">${catLabels[e.cat]||e.cat} · ${e.year}</div></div>
-      <div class="entry-actions">
-        <button class="btn-edit" onclick="showEditForm('${e.id}')">Edit</button>
-        <button class="btn-danger" onclick="deleteEntry('${e.id}')">Hapus</button>
-      </div>
-    </div>`).join('')}</div>` :
-    `<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:13px">Belum ada entri.</div>`;
+function doLogin(){
+  const v=document.getElementById('passInput').value;
+  if(v===ADMIN_PASS){authed=true;showAdminDash();}
+  else{document.getElementById('loginErr').style.display='block';}
+}
 
-  // Profile photo section
-  const profileSrc = _profile && _profile.src ? _profile.src : '';
-  const profPosX = _profile && _profile.posX !== undefined ? _profile.posX : 50;
-  const profPosY = _profile && _profile.posY !== undefined ? _profile.posY : 30;
+function showAdminDash(tab){
+  if(tab)_currentAdminTab=tab;
+  const list=_entries.length
+    ?`<div class="entry-list">${_entries.map(e=>`
+      <div class="entry-item">
+        <div><div class="entry-item-title">${e.title}</div><div class="entry-item-meta">${catLabels[e.cat]||e.cat} · ${e.year}</div></div>
+        <div class="entry-actions">
+          <button class="btn-edit" onclick="showEditExp('${e.id}')">Edit</button>
+          <button class="btn-danger" onclick="deleteExp('${e.id}')">Hapus</button>
+        </div>
+      </div>`).join('')}</div>`
+    :`<div style="text-align:center;padding:20px;color:var(--white3);font-size:13px">Belum ada entri.</div>`;
+  const certList=_certs.length
+    ?`<div class="entry-list">${_certs.map(c=>`
+      <div class="entry-item">
+        <div><div class="entry-item-title">${c.title}</div><div class="entry-item-meta">${c.issuer||'—'} · ${c.year||''}</div></div>
+        <div class="entry-actions">
+          <button class="btn-edit" onclick="showEditCert('${c.id}')">Edit</button>
+          <button class="btn-danger" onclick="deleteCert('${c.id}')">Hapus</button>
+        </div>
+      </div>`).join('')}</div>`
+    :`<div style="text-align:center;padding:20px;color:var(--white3);font-size:13px">Belum ada sertifikat.</div>`;
 
-  document.getElementById('adminContent').innerHTML = `
+  const pSrc=_profile&&_profile.src?_profile.src:'';
+  const px=_profile&&_profile.posX!==undefined?_profile.posX:50;
+  const py=_profile&&_profile.posY!==undefined?_profile.posY:30;
+
+  document.getElementById('adminContent').innerHTML=`
     <div class="admin-panel-header">
-      <h2>Admin Panel</h2>
+      <h2>Panel Admin</h2>
       <div style="display:flex;gap:8px;align-items:center">
-        <button class="btn-ghost" onclick="authed=false;showLoginForm()" style="font-size:11px;padding:8px 14px">Keluar</button>
-        <button class="btn-ghost" onclick="closeAdminPanel()" style="font-size:11px;padding:8px 14px">✕</button>
+        <button class="btn-admin-ghost" onclick="authed=false;showLoginForm()" style="font-size:11px;padding:8px 14px">Keluar</button>
+        <button class="btn-admin-ghost" onclick="closeAdminPanel()" style="font-size:11px;padding:8px 14px">✕</button>
       </div>
     </div>
     <div class="admin-panel-body">
       <div class="admin-tabs">
-        <button class="admin-tab ${_currentAdminTab==='entries'?'active':''}" onclick="showAdminDashboard('entries')">📂 Katalog</button>
-        <button class="admin-tab ${_currentAdminTab==='profile'?'active':''}" onclick="showAdminDashboard('profile')">📸 Foto Profil</button>
-        <button class="admin-tab ${_currentAdminTab==='social'?'active':''}" onclick="showAdminDashboard('social')">🔗 Sosial Media</button>
+        <button class="admin-tab ${_currentAdminTab==='about'?'active':''}" onclick="showAdminDash('about')">👤 About</button>
+        <button class="admin-tab ${_currentAdminTab==='exp'?'active':''}" onclick="showAdminDash('exp')">💼 Experiences</button>
+        <button class="admin-tab ${_currentAdminTab==='cert'?'active':''}" onclick="showAdminDash('cert')">🏆 Sertifikat</button>
+        <button class="admin-tab ${_currentAdminTab==='photo'?'active':''}" onclick="showAdminDash('photo')">📸 Foto Profil</button>
+        <button class="admin-tab ${_currentAdminTab==='social'?'active':''}" onclick="showAdminDash('social')">🌐 Sosial Media</button>
       </div>
 
-      <!-- TAB: ENTRIES -->
-      <div class="admin-tab-content ${_currentAdminTab==='entries'?'active':''}">
+      <!-- TAB: ABOUT ME -->
+      <div class="admin-tab-content ${_currentAdminTab==='about'?'active':''}">
+        <p style="font-size:13px;color:var(--white3);margin-bottom:18px;line-height:1.6">Edit informasi yang muncul di halaman About Me / Hero.</p>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Nama (depan)</label>
+            <input type="text" class="form-input" id="aName" value="${_about.name||''}" placeholder="Nama depan">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nama (italic/aksen)</label>
+            <input type="text" class="form-input" id="aNameEm" value="${_about.nameEm||''}" placeholder="Nama belakang / aksen">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Eyebrow (di atas nama)</label>
+          <input type="text" class="form-input" id="aEyebrow" value="${_about.eyebrow||''}" placeholder="Contoh: Sarjana Farmasi · Universitas X">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Sapaan (Hello, Saya / ...)</label>
+          <input type="text" class="form-input" id="aGreeting" value="${_about.greeting||''}" placeholder="Hello, Saya">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Gelar / Jabatan</label>
+          <input type="text" class="form-input" id="aTitle" value="${_about.title||''}" placeholder="S.Farm · IPK 3,71 Cumlaude">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Deskripsi singkat</label>
+          <textarea class="form-textarea" id="aDesc" placeholder="Ceritakan tentang dirimu...">${_about.desc||''}</textarea>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Nama sidebar</label>
+            <input type="text" class="form-input" id="aSidebarName" value="${_about.sidebarName||''}" placeholder="Nama Lengkap">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subtitle sidebar</label>
+            <input type="text" class="form-input" id="aSidebarSub" value="${_about.sidebarSub||''}" placeholder="Profesi / Jurusan">
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-admin-primary" onclick="saveAboutData()">💾 Simpan About Me</button>
+        </div>
+        <div id="aboutSaveStatus" style="margin-top:10px;text-align:right;min-height:24px"></div>
+      </div>
+
+      <!-- TAB: EXPERIENCES -->
+      <div class="admin-tab-content ${_currentAdminTab==='exp'?'active':''}">
         <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
-          <button class="btn-primary" onclick="showAddForm()">+ Tambah Entri</button>
+          <button class="btn-admin-primary" onclick="showAddExp()">+ Tambah Pengalaman</button>
         </div>
         ${list}
       </div>
 
+      <!-- TAB: SERTIFIKAT -->
+      <div class="admin-tab-content ${_currentAdminTab==='cert'?'active':''}">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
+          <button class="btn-admin-primary" onclick="showAddCert()">+ Tambah Sertifikat</button>
+        </div>
+        ${certList}
+      </div>
+
       <!-- TAB: FOTO PROFIL -->
-      <div class="admin-tab-content ${_currentAdminTab==='profile'?'active':''}">
+      <div class="admin-tab-content ${_currentAdminTab==='photo'?'active':''}">
         <div class="form-group">
           <label class="form-label">Foto Profil (tampil di hero)</label>
           <div class="photo-admin-wrap">
             <div class="photo-admin-preview">
-              ${profileSrc
-                ? `<img id="adminProfilePreview" src="${profileSrc}" alt="Profil" style="width:100%;height:100%;object-fit:cover;object-position:${profPosX}% ${profPosY}%">`
-                : `<div class="no-photo" id="adminProfilePreview"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span>Belum ada foto</span></div>`}
+              ${pSrc?`<img id="adminProfilePreview" src="${pSrc}" alt="Profil" style="width:100%;height:100%;object-fit:cover;object-position:${px}% ${py}%">`
+                    :`<div class="no-photo" id="adminProfilePreview"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span>Belum ada foto</span></div>`}
             </div>
-            <div class="slider-row" style="${!profileSrc&&!_profileImgData?'opacity:.4;pointer-events:none':''}">
+            <div class="slider-row" style="${!pSrc&&!_profileImgData?'opacity:.4;pointer-events:none':''}">
               <span class="slider-label">Kiri–Kanan</span>
-              <input type="range" class="pos-slider" id="sliderX" min="0" max="100" value="${profPosX}" oninput="previewProfilePos()">
-              <span id="sliderXVal" style="font-size:11px;color:var(--text-muted);width:30px">${profPosX}%</span>
+              <input type="range" class="pos-slider" id="sliderX" min="0" max="100" value="${px}" oninput="previewProfilePos()">
+              <span id="sliderXVal" style="font-size:11px;color:var(--white3);width:30px">${px}%</span>
             </div>
-            <div class="slider-row" style="${!profileSrc&&!_profileImgData?'opacity:.4;pointer-events:none':''}">
+            <div class="slider-row" style="${!pSrc&&!_profileImgData?'opacity:.4;pointer-events:none':''}">
               <span class="slider-label">Atas–Bawah</span>
-              <input type="range" class="pos-slider" id="sliderY" min="0" max="100" value="${profPosY}" oninput="previewProfilePos()">
-              <span id="sliderYVal" style="font-size:11px;color:var(--text-muted);width:30px">${profPosY}%</span>
+              <input type="range" class="pos-slider" id="sliderY" min="0" max="100" value="${py}" oninput="previewProfilePos()">
+              <span id="sliderYVal" style="font-size:11px;color:var(--white3);width:30px">${py}%</span>
             </div>
           </div>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px">
-          <label class="file-upload-btn">
-            📷 Upload Foto Baru
-            <input type="file" accept="image/*" style="display:none" onchange="onProfileImgChange(event)">
-          </label>
-          ${profileSrc ? `<button class="btn-danger" onclick="deleteProfilePhoto()">Hapus Foto</button>` : ''}
+          <label class="file-upload-btn">📷 Upload Foto<input type="file" accept="image/*" style="display:none" onchange="onProfileImgChange(event)"></label>
+          ${pSrc?`<button class="btn-danger" onclick="deleteProfilePhoto()">Hapus Foto</button>`:''}
         </div>
         <div class="btn-row">
-          <button class="btn-ghost" onclick="showAdminDashboard('profile')">Reset</button>
-          <button class="btn-primary" onclick="saveProfilePhoto()" id="saveProfileBtn">Simpan Foto & Posisi</button>
+          <button class="btn-admin-primary" onclick="saveProfilePhoto()" id="saveProfileBtn">Simpan Foto & Posisi</button>
         </div>
       </div>
 
       <!-- TAB: SOSIAL MEDIA -->
       <div class="admin-tab-content ${_currentAdminTab==='social'?'active':''}">
-        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:20px;line-height:1.6">Isi URL lengkap (termasuk https://). Kosongkan untuk menyembunyikan ikon tersebut.</p>
-        <div class="social-edit-row">
-          <div class="social-edit-icon">📸</div>
+        <p style="font-size:13px;color:var(--white3);margin-bottom:20px;line-height:1.6">Isi URL lengkap. Kosongkan untuk menyembunyikan ikon.</p>
+        ${[
+          {key:'ig',icon:'📸',name:'Instagram',ph:'https://instagram.com/username'},
+          {key:'fb',icon:'👥',name:'Facebook',ph:'https://facebook.com/username'},
+          {key:'wa',icon:'💬',name:'WhatsApp',ph:'https://wa.me/628xxxx'},
+          {key:'email',icon:'✉️',name:'Email',ph:'nama@email.com'},
+          {key:'linkedin',icon:'💼',name:'LinkedIn',ph:'https://linkedin.com/in/username'},
+          {key:'tiktok',icon:'🎵',name:'TikTok',ph:'https://tiktok.com/@username'},
+        ].map(s=>`<div class="social-edit-row">
+          <div class="social-edit-icon">${s.icon}</div>
           <div style="flex:1">
-            <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px">Instagram</div>
-            <input type="url" class="social-edit-input" id="socialIg" value="${_social.ig||''}" placeholder="https://instagram.com/username">
+            <div style="font-size:11px;font-weight:700;color:var(--white3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px">${s.name}</div>
+            <input type="text" class="social-edit-input" id="soc_${s.key}" value="${_social[s.key]||''}" placeholder="${s.ph}">
           </div>
-        </div>
-        <div class="social-edit-row">
-          <div class="social-edit-icon">👥</div>
-          <div style="flex:1">
-            <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px">Facebook</div>
-            <input type="url" class="social-edit-input" id="socialFb" value="${_social.fb||''}" placeholder="https://facebook.com/username">
-          </div>
-        </div>
-        <div class="social-edit-row">
-          <div class="social-edit-icon">💬</div>
-          <div style="flex:1">
-            <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px">WhatsApp</div>
-            <input type="url" class="social-edit-input" id="socialWa" value="${_social.wa||''}" placeholder="https://wa.me/628xxxx">
-          </div>
-        </div>
-        <div class="social-edit-row">
-          <div class="social-edit-icon">✉️</div>
-          <div style="flex:1">
-            <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px">Email</div>
-            <input type="text" class="social-edit-input" id="socialEmail" value="${_social.email||''}" placeholder="nama@email.com">
-          </div>
-        </div>
-        <div class="social-edit-row">
-          <div class="social-edit-icon" style="font-size:13px;font-weight:700;color:#0A66C2">in</div>
-          <div style="flex:1">
-            <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px">LinkedIn</div>
-            <input type="text" class="social-edit-input" id="socialLinkedin" value="${_social.linkedin||''}" placeholder="https://linkedin.com/in/username">
-          </div>
-        </div>
-        <div class="btn-row">
-          <button class="btn-primary" onclick="saveSocialLinks()">Simpan Link</button>
-        </div>
+        </div>`).join('')}
+        <div class="btn-row"><button class="btn-admin-primary" onclick="saveSocialLinks()">Simpan Link</button></div>
         <div id="socialSaveStatus" style="margin-top:10px;text-align:right;min-height:24px"></div>
       </div>
     </div>`;
 }
 
-// ── Profile photo handlers ──
-function onProfileImgChange(evt) {
-  const file = evt.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    _profileImgData = e.target.result;
-    // Update preview
-    const wrap = document.querySelector('.photo-admin-preview');
-    if (wrap) wrap.innerHTML = `<img id="adminProfilePreview" src="${_profileImgData}" alt="Profil" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%">`;
-    // Enable sliders
-    document.querySelectorAll('.slider-row').forEach(r => r.style.opacity = '1');
-    document.querySelectorAll('.slider-row').forEach(r => r.style.pointerEvents = 'auto');
+// ══ SAVE ABOUT ══
+async function saveAboutData(){
+  _about = {
+    name: document.getElementById('aName').value.trim(),
+    nameEm: document.getElementById('aNameEm').value.trim(),
+    eyebrow: document.getElementById('aEyebrow').value.trim(),
+    greeting: document.getElementById('aGreeting').value.trim(),
+    title: document.getElementById('aTitle').value.trim(),
+    desc: document.getElementById('aDesc').value.trim(),
+    sidebarName: document.getElementById('aSidebarName').value.trim(),
+    sidebarSub: document.getElementById('aSidebarSub').value.trim(),
   };
-  reader.readAsDataURL(file);
-}
-function previewProfilePos() {
-  const x = document.getElementById('sliderX').value;
-  const y = document.getElementById('sliderY').value;
-  document.getElementById('sliderXVal').textContent = x + '%';
-  document.getElementById('sliderYVal').textContent = y + '%';
-  const img = document.getElementById('adminProfilePreview');
-  if (img && img.tagName === 'IMG') img.style.objectPosition = `${x}% ${y}%`;
-}
-async function saveProfilePhoto() {
-  const btn = document.getElementById('saveProfileBtn');
-  btn.textContent = '⏳ Menyimpan...'; btn.disabled = true;
-  const x = parseInt(document.getElementById('sliderX').value) || 50;
-  const y = parseInt(document.getElementById('sliderY').value) || 30;
-  const src = _profileImgData || (_profile && _profile.src) || '';
-  _profile = {src, posX: x, posY: y};
-  await saveProfile(_profile);
-  _profileImgData = null;
-  applyProfilePhoto();
-  btn.textContent = '✓ Tersimpan!'; btn.style.background = '#2DB877';
-  setTimeout(() => { btn.textContent = 'Simpan Foto & Posisi'; btn.style.background = ''; btn.disabled = false; }, 2000);
-}
-async function deleteProfilePhoto() {
-  if (!confirm('Hapus foto profil?')) return;
-  _profile = null;
-  await saveProfile(null);
-  applyProfilePhoto();
-  showAdminDashboard('profile');
+  const st=document.getElementById('aboutSaveStatus');
+  st.innerHTML=`<span class="sync-badge loading">⏳ Menyimpan...</span>`;
+  const ok=await saveAbout(_about);
+  st.innerHTML=ok?`<span class="sync-badge ok">✓ Tersimpan</span>`:`<span class="sync-badge err">✗ Gagal</span>`;
+  applyAbout();
 }
 
-// ── Social links save ──
-async function saveSocialLinks() {
-  const status = document.getElementById('socialSaveStatus');
-  status.innerHTML = `<span class="sync-badge loading">⏳ Menyimpan...</span>`;
-  _social = {
-    ig: document.getElementById('socialIg').value.trim(),
-    fb: document.getElementById('socialFb').value.trim(),
-    wa: document.getElementById('socialWa').value.trim(),
-    email: document.getElementById('socialEmail').value.trim(),
-    linkedin: document.getElementById('socialLinkedin').value.trim()
-  };
-  const ok = await saveSocial(_social);
-  renderSocialLinks();
-  status.innerHTML = ok
-    ? `<span class="sync-badge ok">✓ Link sosial media tersimpan</span>`
-    : `<span class="sync-badge err">⚠ Gagal menyimpan</span>`;
-  setTimeout(() => { if (status) status.innerHTML = ''; }, 3000);
-}
-
-// ══════════════════════════════════════════════════════
-//  ENTRY FORM
-// ══════════════════════════════════════════════════════
-function showAddForm() { editingId = null; showEntryForm(null); }
-function showEditForm(id) { editingId = id; showEntryForm(_entries.find(x => x.id === id)); }
-
-async function showEntryForm(e) {
-  _formImgData = null;
-  _formDocGallery = [];
-  const isEdit = !!e;
-  const existingImg = e ? (await loadEntryImg(e.id) || '') : '';
-  const existingGallery = e ? (await loadDocGallery(e.id) || []) : [];
-  _formDocGallery = [...existingGallery];
-  document.getElementById('adminContent').innerHTML = `
-    <div class="admin-panel-header"><h2>${isEdit ? 'Edit Entri' : 'Tambah Entri'}</h2><button class="btn-ghost" onclick="showAdminDashboard()" style="font-size:11px;padding:8px 14px">← Kembali</button></div>
+// ══ ADD/EDIT EXPERIENCE ══
+function showAddExp(){editingId=null;showExpForm();}
+function showEditExp(id){editingId=id;showExpForm(_entries.find(e=>e.id===id));}
+function showExpForm(e=null){
+  document.getElementById('adminContent').innerHTML=`
+    <div class="admin-panel-header">
+      <h2>${e?'Edit':'Tambah'} Pengalaman</h2>
+      <button class="btn-admin-ghost" onclick="showAdminDash('exp')" style="font-size:12px;padding:8px 14px">← Kembali</button>
+    </div>
     <div class="admin-panel-body">
       <div class="form-group">
-        <label class="form-label" for="fCat">Kategori</label>
-        <select id="fCat" class="form-select">
-          ${['research','academic','internship','work','organization'].map(c=>`<option value="${c}"${e&&e.cat===c?' selected':''}>${catLabels[c]}</option>`).join('')}
+        <label class="form-label">Kategori</label>
+        <select class="form-select" id="fCat">
+          ${['organisasi','kerja','magang','pengabdian','akademik'].map(c=>`<option value="${c}" ${(e&&e.cat===c)?'selected':''}>${catLabels[c]}</option>`).join('')}
         </select>
       </div>
-      <div class="form-group">
-        <label class="form-label" for="fTitle">Judul</label>
-        <input type="text" id="fTitle" class="form-input" placeholder="Judul pengalaman / projek" value="${e?e.title.replace(/"/g,'&quot;'):''}">
-      </div>
+      <div class="form-group"><label class="form-label">Judul *</label><input type="text" class="form-input" id="fTitle" value="${e?e.title:''}" placeholder="Nama kegiatan / posisi"></div>
       <div class="form-grid">
-        <div class="form-group"><label class="form-label" for="fYear">Tahun</label><input type="text" id="fYear" class="form-input" placeholder="2024" value="${e?e.year:''}"></div>
-        <div class="form-group"><label class="form-label">Foto Katalog</label>
-          <label class="file-upload-btn" style="display:inline-flex;cursor:pointer">
-            📷 Upload Foto
-            <input type="file" accept="image/*" style="display:none" onchange="onFormImgChange(event)">
-          </label>
-          ${existingImg?`<img id="formImgPreview" src="${existingImg}" class="img-preview" style="display:block">`:`<img id="formImgPreview" src="" class="img-preview">`}
-        </div>
+        <div class="form-group"><label class="form-label">Tahun</label><input type="text" class="form-input" id="fYear" value="${e?e.year:''}" placeholder="2024 atau 2023–2024"></div>
       </div>
-      <div class="form-group"><label class="form-label" for="fDesc">Deskripsi</label><textarea id="fDesc" class="form-textarea" placeholder="Deskripsi singkat...">${e?e.desc:''}</textarea></div>
-      <div class="form-group"><label class="form-label" for="fRoles">Peran & Kontribusi <span style="color:var(--text-muted);text-transform:none;letter-spacing:0">(satu per baris)</span></label><textarea id="fRoles" class="form-textarea" placeholder="Peran pertama&#10;Peran kedua">${e?(e.roles||[]).join('\n'):''}</textarea></div>
-      <div class="form-group"><label class="form-label" for="fTags">Tags <span style="color:var(--text-muted);text-transform:none;letter-spacing:0">(pisahkan koma)</span></label><input type="text" id="fTags" class="form-input" placeholder="GC-MS, Scopus, Farmasi" value="${e?(e.tags||[]).join(', '):''}"></div>
-      <div class="form-group"><label class="form-label" for="fDoi">DOI Publikasi</label><input type="text" id="fDoi" class="form-input" placeholder="10.xxxxx/..." value="${e?e.doi:''}"></div>
-      <div class="form-group"><label class="form-label" for="fLink">Link lainnya</label><input type="text" id="fLink" class="form-input" placeholder="https://..." value="${e?e.link||'':''}"></div>
+      <div class="form-group"><label class="form-label">Deskripsi singkat</label><textarea class="form-textarea" id="fDesc" placeholder="Deskripsi kegiatan...">${e?e.desc:''}</textarea></div>
+      <div class="form-group"><label class="form-label">Peran & Kontribusi (satu per baris)</label><textarea class="form-textarea" id="fRoles" placeholder="Peran 1\nPeran 2">${e?(e.roles||[]).join('\n'):''}</textarea></div>
+      <div class="form-group"><label class="form-label">Tags (pisahkan koma)</label><input type="text" class="form-input" id="fTags" value="${e?(e.tags||[]).join(', '):''}" placeholder="Tag1, Tag2"></div>
+      <div class="form-group"><label class="form-label">Tautan (opsional)</label><input type="url" class="form-input" id="fLink" value="${e?e.link||'':''}" placeholder="https://..."></div>
       <div class="form-group">
-        <label class="form-label">Dokumentasi Kegiatan <span style="color:var(--text-muted);text-transform:none;letter-spacing:0">(maks 10 foto · jpg/jpeg/png dll)</span></label>
-        <div id="docGalleryPreview" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:10px"></div>
-        <label class="file-upload-btn" style="display:inline-flex;cursor:pointer">
-          📷 Tambah Foto Dokumentasi
-          <input type="file" accept="image/*" multiple style="display:none" onchange="onDocGalleryChange(event)">
-        </label>
-        <div id="docGalleryCount" style="font-size:11px;color:var(--text-muted);margin-top:6px"></div>
+        <label class="form-label">Foto Utama</label>
+        <label class="file-upload-btn">📷 Upload Foto<input type="file" accept="image/*" style="display:none" onchange="onFormImgChange(event)"></label>
+        <img id="formImgPreview" class="img-preview">
       </div>
-      <div id="saveEntryStatus" style="min-height:24px;margin-bottom:4px;text-align:right"></div>
-      <div class="btn-row"><button class="btn-ghost" onclick="showAdminDashboard()">Batal</button><button class="btn-primary" id="saveEntryBtn" onclick="saveEntry()">${isEdit?'Simpan Perubahan':'Tambahkan'}</button></div>
+      <div class="form-group">
+        <label class="form-label">Foto Dokumentasi (maks 10)</label>
+        <label class="file-upload-btn">📎 Tambah Foto<input type="file" accept="image/*" multiple style="display:none" onchange="onDocGalleryChange(event)"></label>
+        <div style="font-size:11px;color:var(--white3);margin-top:8px" id="docGalleryCount"></div>
+        <div id="docGalleryPreview" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-admin-ghost" onclick="showAdminDash('exp')">Batal</button>
+        <button class="btn-admin-primary" id="saveExpBtn" onclick="saveExp()">Simpan</button>
+      </div>
+      <div id="saveExpStatus" style="margin-top:10px;text-align:right;min-height:24px"></div>
     </div>`;
-  // Render existing gallery photos
-  setTimeout(() => renderDocGalleryPreview(), 50);
+  _formImgData=null; _formDocGallery=[];
+  if(e){loadFormDocGallery(e.id);}
 }
 
-function onFormImgChange(evt) {
-  const file = evt.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    _formImgData = e.target.result;
-    const prev = document.getElementById('formImgPreview');
-    if (prev) { prev.src = _formImgData; prev.style.display = 'block'; }
-  };
-  reader.readAsDataURL(file);
-}
-
-function renderDocGalleryPreview() {
-  const wrap = document.getElementById('docGalleryPreview');
-  const countEl = document.getElementById('docGalleryCount');
-  if (!wrap) return;
-  wrap.innerHTML = _formDocGallery.map((src, i) => `
-    <div style="position:relative">
-      <img src="${src}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;border:1.5px solid var(--border)">
-      <button onclick="removeDocGalleryImg(${i})" style="position:absolute;top:4px;right:4px;background:rgba(220,38,38,.9);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1" title="Hapus">✕</button>
-    </div>`).join('');
-  if (countEl) countEl.textContent = `${_formDocGallery.length}/10 foto`;
-}
-
-function onDocGalleryChange(evt) {
-  const files = Array.from(evt.target.files);
-  const remaining = 10 - _formDocGallery.length;
-  const toAdd = files.slice(0, remaining);
-  if (files.length > remaining) alert(`Hanya ${remaining} foto lagi yang bisa ditambahkan (maks 10).`);
-  let loaded = 0;
-  toAdd.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      _formDocGallery.push(e.target.result);
-      loaded++;
-      if (loaded === toAdd.length) renderDocGalleryPreview();
-    };
-    reader.readAsDataURL(file);
-  });
-  evt.target.value = '';
-}
-
-function removeDocGalleryImg(idx) {
-  _formDocGallery.splice(idx, 1);
+async function loadFormDocGallery(id){
+  _formDocGallery=await loadDocGallery(id);
   renderDocGalleryPreview();
 }
 
-async function saveEntry() {
-  const title = document.getElementById('fTitle').value.trim();
-  if (!title) { alert('Judul tidak boleh kosong'); return; }
-  const btn = document.getElementById('saveEntryBtn');
-  const status = document.getElementById('saveEntryStatus');
-  btn.textContent = '⏳ Menyimpan...'; btn.disabled = true;
-  status.innerHTML = `<span class="sync-badge loading">⏳ Menyimpan ke server...</span>`;
+function onFormImgChange(evt){
+  const f=evt.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{_formImgData=e.target.result;const p=document.getElementById('formImgPreview');p.src=_formImgData;p.style.display='block';};
+  r.readAsDataURL(f);
+}
 
-  const rolesRaw = document.getElementById('fRoles').value.trim();
-  const tagsRaw = document.getElementById('fTags').value.trim();
-  const id = editingId || Date.now().toString();
-  const entry = {
-    id, cat: document.getElementById('fCat').value, title,
-    year: document.getElementById('fYear').value.trim(),
-    desc: document.getElementById('fDesc').value.trim(),
-    roles: rolesRaw ? rolesRaw.split('\n').map(r => r.trim()).filter(Boolean) : [],
-    tags: tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [],
-    doi: document.getElementById('fDoi').value.trim(),
-    link: document.getElementById('fLink').value.trim(),
+function renderDocGalleryPreview(){
+  const c=document.getElementById('docGalleryCount');const p=document.getElementById('docGalleryPreview');
+  if(!c||!p)return;
+  c.textContent=`${_formDocGallery.length}/10 foto`;
+  p.innerHTML=_formDocGallery.map((src,i)=>`<div style="position:relative;aspect-ratio:4/3"><img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;border:1px solid var(--border)"><button onclick="removeDocGalleryImg(${i})" style="position:absolute;top:3px;right:3px;background:rgba(220,38,38,.9);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">✕</button></div>`).join('');
+}
+
+function onDocGalleryChange(evt){
+  const files=Array.from(evt.target.files);
+  const rem=10-_formDocGallery.length;
+  const toAdd=files.slice(0,rem);
+  if(files.length>rem)alert(`Hanya ${rem} foto lagi yang bisa ditambahkan (maks 10).`);
+  let loaded=0;
+  toAdd.forEach(file=>{
+    const r=new FileReader();
+    r.onload=e=>{_formDocGallery.push(e.target.result);loaded++;if(loaded===toAdd.length)renderDocGalleryPreview();};
+    r.readAsDataURL(file);
+  });
+  evt.target.value='';
+}
+
+function removeDocGalleryImg(idx){_formDocGallery.splice(idx,1);renderDocGalleryPreview();}
+
+async function saveExp(){
+  const title=document.getElementById('fTitle').value.trim();
+  if(!title){alert('Judul tidak boleh kosong');return;}
+  const btn=document.getElementById('saveExpBtn');
+  const st=document.getElementById('saveExpStatus');
+  btn.textContent='⏳'; btn.disabled=true;
+  st.innerHTML=`<span class="sync-badge loading">⏳ Menyimpan...</span>`;
+  const id=editingId||Date.now().toString();
+  const entry={
+    id, cat:document.getElementById('fCat').value, title,
+    year:document.getElementById('fYear').value.trim(),
+    desc:document.getElementById('fDesc').value.trim(),
+    roles:document.getElementById('fRoles').value.trim().split('\n').map(r=>r.trim()).filter(Boolean),
+    tags:document.getElementById('fTags').value.trim().split(',').map(t=>t.trim()).filter(Boolean),
+    link:document.getElementById('fLink').value.trim(),
   };
-  if (editingId) {
-    const idx = _entries.findIndex(e => e.id === editingId);
-    if (idx >= 0) _entries[idx] = entry;
-  } else {
-    _entries.unshift(entry);
-  }
+  if(editingId){const idx=_entries.findIndex(e=>e.id===editingId);if(idx>=0)_entries[idx]=entry;}
+  else _entries.unshift(entry);
   await saveEntries(_entries);
-  if (_formImgData) await saveEntryImg(id, _formImgData);
-  await saveDocGallery(id, _formDocGallery);
-  renderGrid(currentCat);
+  if(_formImgData)await saveEntryImg(id,_formImgData);
+  await saveDocGallery(id,_formDocGallery);
+  renderExpGrid(currentExpSub);
   updateStats();
-  showAdminDashboard('entries');
+  showAdminDash('exp');
 }
 
-async function deleteEntry(id) {
-  if (!confirm('Hapus entri ini?')) return;
-  _entries = _entries.filter(e => e.id !== id);
+async function deleteExp(id){
+  if(!confirm('Hapus pengalaman ini?'))return;
+  _entries=_entries.filter(e=>e.id!==id);
   await saveEntries(_entries);
-  await deleteEntryImg(id);
-  await deleteDocGallery(id);
-  renderGrid(currentCat);
-  updateStats();
-  showAdminDashboard('entries');
+  await deleteEntryImg(id);await deleteDocGallery(id);
+  renderExpGrid(currentExpSub);updateStats();showAdminDash('exp');
 }
 
-// ══════════════════════════════════════════════════════
-//  LIGHTBOX (galeri dokumentasi)
-// ══════════════════════════════════════════════════════
-let _lightboxGallery = [];
-let _lightboxIdx = 0;
+// ══ ADD/EDIT CERT ══
+function showAddCert(){editingId=null;showCertForm();}
+function showEditCert(id){editingId=id;showCertForm(_certs.find(c=>c.id===id));}
+function showCertForm(c=null){
+  _formImgData=null;
+  document.getElementById('adminContent').innerHTML=`
+    <div class="admin-panel-header">
+      <h2>${c?'Edit':'Tambah'} Sertifikat</h2>
+      <button class="btn-admin-ghost" onclick="showAdminDash('cert')" style="font-size:12px;padding:8px 14px">← Kembali</button>
+    </div>
+    <div class="admin-panel-body">
+      <div class="form-group"><label class="form-label">Nama Sertifikat *</label><input type="text" class="form-input" id="cTitle" value="${c?c.title:''}" placeholder="Nama sertifikat / penghargaan"></div>
+      <div class="form-grid">
+        <div class="form-group"><label class="form-label">Penerbit / Lembaga</label><input type="text" class="form-input" id="cIssuer" value="${c?c.issuer||'':''}" placeholder="Nama lembaga penerbit"></div>
+        <div class="form-group"><label class="form-label">Tahun</label><input type="text" class="form-input" id="cYear" value="${c?c.year||'':''}" placeholder="2024"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Bidang / Kategori</label><input type="text" class="form-input" id="cField" value="${c?c.field||'':''}" placeholder="Farmasi, IT, Bahasa, dll"></div>
+      <div class="form-group">
+        <label class="form-label">Foto Sertifikat</label>
+        <label class="file-upload-btn">📷 Upload Foto<input type="file" accept="image/*" style="display:none" onchange="onCertImgChange(event)"></label>
+        <img id="certImgPreview" class="img-preview">
+      </div>
+      <div class="btn-row">
+        <button class="btn-admin-ghost" onclick="showAdminDash('cert')">Batal</button>
+        <button class="btn-admin-primary" id="saveCertBtn" onclick="saveCert()">Simpan</button>
+      </div>
+      <div id="saveCertStatus" style="margin-top:10px;text-align:right;min-height:24px"></div>
+    </div>`;
+}
 
-async function openLightbox(entryId, idx) {
-  _lightboxGallery = await loadDocGallery(entryId);
-  _lightboxIdx = idx;
-  document.getElementById('lightboxImg').src = _lightboxGallery[idx];
-  document.getElementById('lightboxOverlay').classList.add('show');
-  document.body.style.overflow = 'hidden';
+function onCertImgChange(evt){
+  const f=evt.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{_formImgData=e.target.result;const p=document.getElementById('certImgPreview');p.src=_formImgData;p.style.display='block';};
+  r.readAsDataURL(f);
 }
-function closeLightbox(evt) {
-  if (evt && evt.target && evt.target.id !== 'lightboxOverlay' && !evt.target.classList.contains('lightbox-close')) return;
-  document.getElementById('lightboxOverlay').classList.remove('show');
-  document.body.style.overflow = '';
+
+async function saveCert(){
+  const title=document.getElementById('cTitle').value.trim();
+  if(!title){alert('Nama sertifikat tidak boleh kosong');return;}
+  const btn=document.getElementById('saveCertBtn');
+  btn.textContent='⏳';btn.disabled=true;
+  document.getElementById('saveCertStatus').innerHTML=`<span class="sync-badge loading">⏳ Menyimpan...</span>`;
+  const id=editingId||'c'+Date.now();
+  const cert={id,title,issuer:document.getElementById('cIssuer').value.trim(),year:document.getElementById('cYear').value.trim(),field:document.getElementById('cField').value.trim()};
+  if(editingId){const idx=_certs.findIndex(c=>c.id===editingId);if(idx>=0)_certs[idx]=cert;}
+  else _certs.unshift(cert);
+  await saveCerts(_certs);
+  if(_formImgData)await saveCertImg(id,_formImgData);
+  renderCertGrid();updateStats();showAdminDash('cert');
 }
-function lightboxNav(dir) {
-  _lightboxIdx = (_lightboxIdx + dir + _lightboxGallery.length) % _lightboxGallery.length;
-  document.getElementById('lightboxImg').src = _lightboxGallery[_lightboxIdx];
+
+async function deleteCert(id){
+  if(!confirm('Hapus sertifikat ini?'))return;
+  _certs=_certs.filter(c=>c.id!==id);
+  await saveCerts(_certs);await deleteCertImg(id);
+  renderCertGrid();updateStats();showAdminDash('cert');
 }
-// Close lightbox when clicking overlay background
-document.getElementById('lightboxOverlay').addEventListener('click', function(e) {
-  if (e.target === this) { this.classList.remove('show'); document.body.style.overflow = ''; }
+
+// ══ PROFILE PHOTO ══
+function onProfileImgChange(evt){
+  const f=evt.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    _profileImgData=e.target.result;
+    const w=document.querySelector('.photo-admin-preview');
+    if(w)w.innerHTML=`<img id="adminProfilePreview" src="${_profileImgData}" alt="Profil" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%">`;
+    document.querySelectorAll('.slider-row').forEach(r=>{r.style.opacity='1';r.style.pointerEvents='auto';});
+  };
+  r.readAsDataURL(f);
+}
+function previewProfilePos(){
+  const x=document.getElementById('sliderX').value;
+  const y=document.getElementById('sliderY').value;
+  document.getElementById('sliderXVal').textContent=x+'%';
+  document.getElementById('sliderYVal').textContent=y+'%';
+  const img=document.getElementById('adminProfilePreview');
+  if(img&&img.tagName==='IMG')img.style.objectPosition=`${x}% ${y}%`;
+}
+async function saveProfilePhoto(){
+  const btn=document.getElementById('saveProfileBtn');
+  btn.textContent='⏳';btn.disabled=true;
+  const src=_profileImgData||(_profile&&_profile.src)||null;
+  if(!src){alert('Pilih foto terlebih dahulu');btn.textContent='Simpan Foto & Posisi';btn.disabled=false;return;}
+  const x=parseInt(document.getElementById('sliderX').value)||50;
+  const y=parseInt(document.getElementById('sliderY').value)||30;
+  _profile={src,posX:x,posY:y};
+  const ok=await saveProfile(_profile);
+  btn.textContent='Simpan Foto & Posisi';btn.disabled=false;
+  applyProfilePhoto();_profileImgData=null;
+  if(!ok)alert('Gagal menyimpan. Foto mungkin terlalu besar (>900KB).');
+  else showAdminDash('photo');
+}
+async function deleteProfilePhoto(){
+  if(!confirm('Hapus foto profil?'))return;
+  _profile=null;await saveProfile(null);applyProfilePhoto();showAdminDash('photo');
+}
+
+// ══ SOCIAL LINKS ══
+async function saveSocialLinks(){
+  _social={
+    ig:document.getElementById('soc_ig').value.trim(),
+    fb:document.getElementById('soc_fb').value.trim(),
+    wa:document.getElementById('soc_wa').value.trim(),
+    email:document.getElementById('soc_email').value.trim(),
+    linkedin:document.getElementById('soc_linkedin').value.trim(),
+    tiktok:document.getElementById('soc_tiktok').value.trim(),
+  };
+  const st=document.getElementById('socialSaveStatus');
+  st.innerHTML=`<span class="sync-badge loading">⏳ Menyimpan...</span>`;
+  const ok=await saveSocial(_social);
+  st.innerHTML=ok?`<span class="sync-badge ok">✓ Tersimpan</span>`:`<span class="sync-badge err">✗ Gagal</span>`;
+  renderSocialGrid();
+}
+
+// ══ SIDEBAR MOBILE ══
+document.getElementById('sidebarToggle').addEventListener('click',()=>{
+  const sidebar=document.getElementById('sidebar');
+  const nav=document.getElementById('sidebarNav');
+  sidebar.classList.toggle('open');
+  nav.classList.toggle('mobile-open');
 });
 
-// ══════════════════════════════════════════════════════
-//  EXPOSE FUNCTIONS TO WINDOW (diperlukan karena type=module)
-// ══════════════════════════════════════════════════════
-window.filterCat = filterCat;
-window.openDetail = openDetail;
-window.closeDetail = closeDetail;
-window.openAdmin = openAdmin;
-window.closeAdmin = closeAdminPanel;
-window.tryLogin = doLogin;
-window.showAdminDashboard = showAdminDashboard;
-window.showAddForm = showAddForm;
-window.showEditForm = showEditForm;
-window.saveEntry = saveEntry;
-window.deleteEntry = deleteEntry;
-window.onFormImgChange = onFormImgChange;
-window.onDocGalleryChange = onDocGalleryChange;
-window.removeDocGalleryImg = removeDocGalleryImg;
-window.onProfileImgChange = onProfileImgChange;
-window.previewProfilePos = previewProfilePos;
-window.saveProfilePhoto = saveProfilePhoto;
-window.deleteProfilePhoto = deleteProfilePhoto;
-window.saveSocialLinks = saveSocialLinks;
-window.showLoginForm = showLoginForm;
-window.closeAdminPanel = closeAdminPanel;
-window.doLogin = doLogin;
-window.openLightbox = openLightbox;
-window.closeLightbox = closeLightbox;
-window.lightboxNav = lightboxNav;
+// ══ EXPOSE TO WINDOW ══
+window.navTo=navTo;
+window.toggleExpMenu=toggleExpMenu;
+window.navToExp=navToExp;
+window.filterExp=filterExp;
+window.openAdmin=openAdmin;
+window.closeAdminPanel=closeAdminPanel;
+window.doLogin=doLogin;
+window.showAdminDash=showAdminDash;
+window.showAddExp=showAddExp;
+window.showEditExp=showEditExp;
+window.showAddCert=showAddCert;
+window.showEditCert=showEditCert;
+window.saveExp=saveExp;
+window.saveCert=saveCert;
+window.deleteExp=deleteExp;
+window.deleteCert=deleteCert;
+window.saveAboutData=saveAboutData;
+window.saveSocialLinks=saveSocialLinks;
+window.saveProfilePhoto=saveProfilePhoto;
+window.deleteProfilePhoto=deleteProfilePhoto;
+window.onFormImgChange=onFormImgChange;
+window.onDocGalleryChange=onDocGalleryChange;
+window.removeDocGalleryImg=removeDocGalleryImg;
+window.onCertImgChange=onCertImgChange;
+window.onProfileImgChange=onProfileImgChange;
+window.previewProfilePos=previewProfilePos;
+window.closeDetail=closeDetail;
+window.openDetail=openDetail;
+window.filterExp=filterExp;
+window.openLightboxFn=openLightboxFn;
+window.closeLightboxFn=closeLightboxFn;
+window.lightboxNav=lightboxNav;
 
-// ══════════════════════════════════════════════════════
-//  START
-// ══════════════════════════════════════════════════════
+// ══ START ══
 init();
+
+// ══ SCROLL ANIMATIONS ══
+function observeAnimations(){
+  const els = document.querySelectorAll('.anim-hidden');
+  if(!els.length)return;
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('anim-visible');io.unobserve(e.target);}
+    });
+  },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(el=>io.observe(el));
+}
+
+// trigger on page switch
+const _origNavTo = window.navTo;
+window.navTo = function(page){
+  _origNavTo(page);
+  setTimeout(observeAnimations,80);
+};
+
+// Hero pop-in on load
+setTimeout(()=>{
+  document.querySelectorAll('.hero-animate,.hero-photo-animate').forEach(el=>{
+    el.classList.add('hero-anim-in');
+  });
+  observeAnimations();
+},120);
 </script>
 </body>
 </html>
